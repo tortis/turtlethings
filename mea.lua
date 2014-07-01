@@ -31,7 +31,7 @@ function loadIntent(file)
   return r
 end
 
-function stockerLoop()
+function stockerLoop(me, levelDict)
   local jobs = me.getJobList()
   for k,v in jobs do
     if levelDict[v.name] ~= nil then
@@ -66,4 +66,4 @@ end
  
 local levelDict = loadIntent(args[2])
 print(textutils.serialize(levelDict ))
-stockerLoop()
+stockerLoop(me, levelDict)
