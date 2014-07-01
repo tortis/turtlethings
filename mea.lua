@@ -43,12 +43,12 @@ function stockCycle()
 
   for name, tab in pairs(LEVELDICT) do
     if ME.countOfItemType(tab.id, tab.meta) + tab.aug < tab.amt then
-      print("Need to craft ".. tab.amt - ME.countOfItemType(tab.id, tab.meta) + tab.aug .. name)
+      print("Need to craft ".. tab.amt - ME.countOfItemType(tab.id, tab.meta) + tab.aug .." ".. name)
     end
     tab.aug = 0
   end
   print("Stock cycle took ".. os.clock()-t0 .. " seconds.")
-  if os.clock-t0 > INTERVAL then
+  if os.clock()-t0 > INTERVAL then
     print("Warning: the stock cycle took more time to complete than the stock interval. This is unsafe and may eventually lead to system failure.")
   end
 end
