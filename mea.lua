@@ -25,6 +25,7 @@ function loadIntent(file)
       r[name].id = le[1]
       r[name].meta = le[2]
       r[name].amt = le[3]
+      r[name].aug = 0
     end
     line = f.readLine()
   end
