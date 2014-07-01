@@ -13,7 +13,6 @@ function loadIntent(file)
       local index = 1
       local name
       for i in string.gmatch(line, "[a-zA-Z%s]+") do
-        print(i)
         name = i
       end
       
@@ -31,6 +30,27 @@ function loadIntent(file)
   end
   return r
 end
+
+function stockerLoop()
+  local jobs = me.getJobList()
+  for k,v in jobs do
+    if levelDict[v.name] ~= nil then
+      levelDict[v.name].aug = v.qty
+    end
+  end
+  local tid = os.startTimer(10)
+  local e,p1,p2,p3 = os.pullEvent()
+  if e == "timer" and p1 == tid then
+    for name, tab in levelDict do
+      if me.countOfItemType(tab.id, tab.meta) + tab.aug < tab.amt then
+        print("Need to craft ".. tab.amt - me.countOfItem(tab.id, tab.meta) + tab.aug .. name)
+      end
+      tab.aug = 0
+    end
+  end
+end
+
+-- Main Program
  
 local args = {...}
 if #args < 1 then
@@ -46,3 +66,4 @@ end
  
 local levelDict = loadIntent(args[2])
 print(textutils.serialize(levelDict ))
+stockerLoop()
