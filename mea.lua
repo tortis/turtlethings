@@ -56,7 +56,11 @@ function stocker(interval)
     if e == "timer" and p1 == tid then
       stockCycle()
       tid = os.startTimer(interval)
-    elseif e == "stop" then
+    elseif e == "pause_stock" then
+      tid = 0
+    elseif e == "resume_stock" then
+      tid = os.startTimer(interval)
+    elseif e == "stop_stock" then
       done = true
     end
   end
