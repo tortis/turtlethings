@@ -48,7 +48,7 @@ function stockCycle()
   end
 end
 
-function stocker(interval)
+function stockerLoop(interval)
   local tid = os.startTimer(interval)
   local done = false
   
@@ -67,8 +67,21 @@ function stocker(interval)
   end
 end
 
-function analytics()
+function analyticsLoop()
   -- Track storage, jobs, and make graphs
+end
+
+function UILoop()
+  -- Allow the user to adjust settigns
+end
+
+function notificationLoop()
+  -- Listen for notifications from the other threads and 
+  -- broadcast them on various channels.
+end
+
+function wirelessRequestLoop()
+  -- Interface with chat block to server requests.
 end
 
 -- Main Program
@@ -87,4 +100,4 @@ end
  
 levelDict = loadIntent(args[2])
 print(textutils.serialize(levelDict ))
-stocker(10)
+stockerLoop(10)
