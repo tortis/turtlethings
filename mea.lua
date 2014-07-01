@@ -31,7 +31,7 @@ function loadIntent(file)
   return r
 end
 
-function stockerLoop(me, levelDict)
+function stockerLoop()
   local jobs = me.getJobList()
   for k,v in jobs do
     if levelDict[v.name] ~= nil then
@@ -58,12 +58,12 @@ if #args < 1 then
   return
 end
  
-local me = peripheral.wrap(args[1])
+me = peripheral.wrap(args[1])
 if me == nil then
   print("No peripheral was found on the specified side.")
   return
 end
  
-local levelDict = loadIntent(args[2])
+levelDict = loadIntent(args[2])
 print(textutils.serialize(levelDict ))
-stockerLoop(me, levelDict)
+stockerLoop()
