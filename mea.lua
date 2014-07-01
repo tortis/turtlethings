@@ -43,7 +43,7 @@ function stockCycle()
 
   for name, tab in pairs(LEVELDICT) do
     if ME.countOfItemType(tab.id, tab.meta) + tab.aug < tab.amt then
-      print("Need to craft ".. tab.amt - ME.countOfItem(tab.id, tab.meta) + tab.aug .. name)
+      print("Need to craft ".. tab.amt - ME.countOfItemType(tab.id, tab.meta) + tab.aug .. name)
     end
     tab.aug = 0
   end
