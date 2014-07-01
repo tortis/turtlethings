@@ -22,9 +22,9 @@ function loadIntent(file)
         index = index + 1
       end
       r[name] = {}
-      r[name].id = le[1]
-      r[name].meta = le[2]
-      r[name].amt = le[3]
+      r[name].id = tonumber(le[1])
+      r[name].meta = tonumber(le[2])
+      r[name].amt = tonumber(le[3])
       r[name].aug = 0
     end
     line = f.readLine()
