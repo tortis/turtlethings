@@ -12,7 +12,7 @@ function loadIntent(file)
     if line ~= "" then
       local le = {}
       local index = 1
-      for i in string.gmatch(line, "[a-zA-Z%s]+") dp
+      for i in string.gmatch(line, "[a-zA-Z%s]+") do
         print(i)
       end
       for i in string.gmatch(line, "%d+") do
