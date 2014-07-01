@@ -67,6 +67,10 @@ function stocker(interval)
   end
 end
 
+function analytics()
+  -- Track storage, jobs, and make graphs
+end
+
 -- Main Program
  
 local args = {...}
