@@ -33,34 +33,39 @@ function loadIntent(file)
 end
 
 function stockCycle()
-  local jobs = me.getJobList()
+  local t0 = os.clock()
+  local jobs = ME.getJobList()
   for k,v in pairs(jobs) do
-    if levelDict[v.name] ~= nil then
-      levelDict[v.name].aug = v.qty
+    if LEVELDICT[v.name] ~= nil then
+      LEVELDICT[v.name].aug = v.qty
     end
   end
 
-  for name, tab in pairs(levelDict) do
-    if me.countOfItemType(tab.id, tab.meta) + tab.aug < tab.amt then
-      print("Need to craft ".. tab.amt - me.countOfItem(tab.id, tab.meta) + tab.aug .. name)
+  for name, tab in pairs(LEVELDICT) do
+    if ME.countOfItemType(tab.id, tab.meta) + tab.aug < tab.amt then
+      print("Need to craft ".. tab.amt - ME.countOfItem(tab.id, tab.meta) + tab.aug .. name)
     end
     tab.aug = 0
   end
+  print("Stock cycle took ".. os.clock()-t0 .. " seconds.")
+  if os.clock-t0 > INTERVAL then
+    print("Warning: the stock cycle took more time to complete than the stock interval. This is unsafe and may eventually lead to system failure.")
+  end
 end
 
-function stockerLoop(interval)
-  local tid = os.startTimer(interval)
+function stockerLoop()
+  local tid = os.startTimer(INTERVAL)
   local done = false
   
   while not done do
     local e,p1,p2,p3 = os.pullEvent()
     if e == "timer" and p1 == tid then
       stockCycle()
-      tid = os.startTimer(interval)
+      tid = os.startTimer(INTERVAL)
     elseif e == "pause_stock" then
       tid = 0
     elseif e == "resume_stock" then
-      tid = os.startTimer(interval)
+      tid = os.startTimer(INTERVAL)
     elseif e == "stop_stock" then
       done = true
     end
@@ -92,12 +97,15 @@ if #args < 1 then
   return
 end
  
-me = peripheral.wrap(args[1])
-if me == nil then
+ME = peripheral.wrap(args[1])
+if ME == nil then
   print("No peripheral was found on the specified side.")
   return
 end
- 
-levelDict = loadIntent(args[2])
-print(textutils.serialize(levelDict ))
-stockerLoop(10)
+
+INTERVAL = 10
+
+LEVELDICT = loadIntent(args[2])
+print(textutils.serialize(LEVELDICT ))
+stockerLoop()
+-- parallel.waitForAll(stockerLoop, analyticsLoop, UILoop, notificationLoop, wirelessRequestLoop)
