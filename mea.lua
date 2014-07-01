@@ -10,16 +10,21 @@ function loadIntent(file)
   local line = f.readLine()
   while line ~= nil do
     if line ~= "" then
-      local le = {}
       local index = 1
+      local name
       for i in string.gmatch(line, "[a-zA-Z%s]+") do
         print(i)
+        name = i
       end
+      
+      local le = {}
       for i in string.gmatch(line, "%d+") do
         le[index] = i
         index = index + 1
       end
-      r[32768*tonumber(le[2]) + tonumber(le[1])] = tonumber(le[3])
+      r[name].id = le[1]
+      r[name].meta = le[2]
+      r[name].amt = le[3]
     end
     line = f.readLine()
   end
