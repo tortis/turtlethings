@@ -36,3 +36,4 @@ function barGraph(data, monitor, title, xlabel, ylabel)
   end
   term.restore()
 end
+
