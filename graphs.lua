@@ -5,6 +5,7 @@ function barGraph(data, monitor, title, xlabel, ylabel)
   assert(type(ylabel) == "string", "barGraph expects a string as the fifth argument.")
   
   local w,h = monitor.getSize()
+  monitor.setBackgroundColor(colors.black)
   monitor.clear()
   
   monitor.setCursorPos(w/2 - string.len(title)/2, 1)
