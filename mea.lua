@@ -38,7 +38,6 @@ function stockCycle()
   for k,v in pairs(jobs) do
     if LEVELDICT[v.name] ~= nil then
       LEVELDICT[v.name].aug = v.qty
-      print("Already crafting ".. v.qty .. " " .. v.name)
     end
   end
 
