@@ -14,18 +14,20 @@ function barGraph(data, monitor, title, xlabel, ylabel)
   monitor.write(xlabel)
   
   local max = 0
+  local min = 99999999999999
   local i = 1
   while i < #data and i <= w-3 do
     if data[i] > max then max = data[i] end
+    if data[i] < min then min = data[i] end
     i = i + 1
   end
   
-  local hscale = max/(h-3)
+  local hscale = (max-min)/(h-3)
   
   i=1
   term.redirect(monitor)
   while i < #data and i <= w-3 do
-    paintutils.drawLine(w-i+1, h-2, w-i+1, (h-1)-data[i]/hscale, colors.white)
+    paintutils.drawLine(w-i+1, h-2, w-i+1, (h-1)-(data[i]-min)/hscale, colors.white)
     i = i + 1
   end
   term.restore()
