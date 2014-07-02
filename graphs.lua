@@ -10,20 +10,22 @@ function barGraph(data, monitor, title, xlabel, ylabel)
   
   monitor.setCursorPos(w/2 - string.len(title)/2, 1)
   monitor.write(title)
+  monitor.setCursorPos(w/2 - string.len(xlabel)/2,h)
+  monitor.write(xlabel)
+  
   local max = 0
   local i = 1
-  while i < #data and i <= 30 do
+  while i < #data and i <= w-3 do
     if data[i] > max then max = data[i] end
     i = i + 1
   end
-  print(max)
   
   local hscale = max/(h-3)
   
   i=1
   term.redirect(monitor)
-  while i < #data and i <= 30 do
-    paintutils.drawLine(w-i, h-2, w-i, data[i]/hscale)
+  while i < #data and i <= w-3 do
+    paintutils.drawLine(w-i+1, h-2, w-i+1, (h-1)-data[i]/hscale, colors.white)
     i = i + 1
   end
   term.restore()
