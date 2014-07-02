@@ -21,6 +21,10 @@ function barGraph(data, monitor, title, xlabel, ylabel)
     if data[i] < min then min = data[i] end
     i = i + 1
   end
+  monitor.setCursorPos(1,h)
+  monitor.write(min)
+  monitor.setCursorPos(1,1)
+  monitor.write(max)
   
   local hscale = (max-min)/(h-3)
   
