@@ -16,6 +16,7 @@ function barGraph(data, monitor, title, xlabel, ylabel)
     if data[i] > max then max = data[i] end
     i = i + 1
   end
+  print(max)
   
   local hscale = max/(h-3)
   
@@ -23,6 +24,7 @@ function barGraph(data, monitor, title, xlabel, ylabel)
   term.redirect(monitor)
   while i < #data and i <= 30 do
     paintutils.drawLine(w-i, h-2, w-i, data[i]/hscale)
+    i = i + 1
   end
   term.restore()
 end
