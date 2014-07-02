@@ -9,4 +9,19 @@ function barGraph(data, monitor, title, xlabel, ylabel)
   
   monitor.setCursorPos(w/2 - string.len(title)/2, 1)
   monitor.write(title)
+  local max = 0
+  local i = 1
+  while i < #data and i <= 30 do
+    if data[i] > max then max = data[i] end
+    i = i + 1
+  end
+  
+  local hscale = max/(h-3)
+  
+  i=1
+  term.redirect(monitor)
+  while i < #data and i <= 30 do
+    paintutils.drawLine(w-i, h-2, w-i, data[i]/hscale)
+  end
+  term.restore()
 end
