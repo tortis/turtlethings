@@ -55,13 +55,16 @@ function stockCycle()
 end
 
 function paintTitleBar()
-  print("Updating title bar.")
   textutils.drawLine(1,1,WIDTH,1, colors.blue)
   term.setTextColor(colors.white)
   term.setCursorPos(2, 1)
   term.write("bitRAKE's ME Manager")
   term.setCursorPos(WIDTH-8,1)
   term.write(textutils.formatTime(os.time(), false))
+end
+
+function paintIntentList()
+ 
 end
 
 function stockerLoop()
@@ -89,6 +92,7 @@ end
 
 function UILoop()
   while true do
+    term.setBackgroundColor(colors.black)
     term.clear()
     paintTitleBar()
     sleep(15)
