@@ -64,12 +64,12 @@ function paintTitleBar()
 end
 
 function paintNotificationBar(msg)
-  paintutils.drawLine(1,HEIGHT,WIDTH,HEIGHT, colors.grey)
+  paintutils.drawLine(1,HEIGHT,WIDTH,HEIGHT, colors.lightGray)
   term.setCursorPos(2, HEIGHT)
   term.setTextColor(colors.black)
   textutils.slowWrite(msg)
   sleep(1.5)
-  paintutils.drawLine(1,HEIGHT,WIDTH,HEIGHT, colors.grey)
+  paintutils.drawLine(1,HEIGHT,WIDTH,HEIGHT, colors.lightGray)
 end
 
 function paintIntentList()
