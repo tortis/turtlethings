@@ -131,7 +131,7 @@ function inputLoop()
     local e, p1, p2, p3 = os.pullEvent()
     if e == "mouse_click" then
       if BUTTONS[p2][p3] ~= nil then
-        os.queueEvent("Button Clicked: "..BUTTONS[p2][p3])
+        os.queueEvent("notif", "Button Clicked: "..BUTTONS[p2][p3])
       end
     elseif e == "mouse_scroll" then
       --do nothing
