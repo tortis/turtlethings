@@ -63,6 +63,10 @@ function paintTitleBar()
   term.write(textutils.formatTime(os.time(), false))
 end
 
+function paintNotificationBar()
+  
+end
+
 function paintIntentList()
  
 end
