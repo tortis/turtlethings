@@ -101,6 +101,7 @@ end
 
 function UILoop()
   local tid = os.startTimer(15)
+  os.queueEvent("notif", "Welcome!")
   while true do
     local e,p1,p2 = os.pullEvent()
     if e == "notif" then
