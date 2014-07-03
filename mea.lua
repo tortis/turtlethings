@@ -55,6 +55,7 @@ function stockCycle()
 end
 
 function paintTitleBar()
+  print("Updating title bar.")
   textutils.drawLine(1,1,WIDTH,1, colors.blue)
   term.setTextColor(colors.white)
   term.setCursorPos(2, 1)
@@ -88,6 +89,7 @@ end
 
 function UILoop()
   while true do
+    term.clear()
     paintTitleBar()
     sleep(15)
   end
