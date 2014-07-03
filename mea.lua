@@ -158,6 +158,9 @@ INTERVAL = 10
 WIDTH, HEIGHT = term.getSize()
 LEVELDICT = loadIntent(args[2])
 BUTTONS = {}
+for i=1,WIDTH do
+  BUTTONS[i] = {}
+end
 function BUTTONS.add(x, y, text, name)
   for i=1,string.len(text) do
     BUTTONS[x+i-1][y] = name
