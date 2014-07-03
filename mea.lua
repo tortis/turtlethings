@@ -67,7 +67,7 @@ function paintNotificationBar(msg)
   paintutils.drawLine(1,HEIGHT,WIDTH,HEIGHT, colors.grey)
   term.setCursorPos(2, HEIGHT)
   term.setTextColor(colors.black)
-  textutils.slowPrint(msg)
+  textutils.slowWrite(msg)
   sleep(1.5)
   paintutils.drawLine(1,HEIGHT,WIDTH,HEIGHT, colors.grey)
 end
@@ -102,7 +102,8 @@ end
 function UILoop()
   term.setBackgroundColor(colors.black)
   term.clear()
-  local tid = os.startTimer(0.1)
+  paintTitleBar()
+  local tid = os.startTimer(15)
   os.queueEvent("notif", "Welcome!")
   while true do
     local e,p1,p2 = os.pullEvent()
