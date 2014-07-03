@@ -68,7 +68,7 @@ function paintNotificationBar(msg)
   term.setCursorPos(2, HEIGHT)
   term.setTextColor(colors.black)
   textutils.slowWrite(msg)
-  sleep(3)
+  --sleep(3)
   paintutils.drawLine(1,HEIGHT,WIDTH,HEIGHT, colors.lightGray)
 end
 
