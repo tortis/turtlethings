@@ -55,7 +55,7 @@ function stockCycle()
 end
 
 function paintTitleBar()
-  textutils.drawLine(1,1,WIDTH,1, colors.blue)
+  paintutils.drawLine(1,1,WIDTH,1, colors.blue)
   term.setTextColor(colors.white)
   term.setCursorPos(2, 1)
   term.write("bitRAKE's ME Manager")
