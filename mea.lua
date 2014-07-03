@@ -70,7 +70,6 @@ function paintNotificationBar(msg)
   textutils.slowPrint(msg)
   sleep(1.5)
   paintutils.drawLine(1,HEIGHT,WIDTH,HEIGHT, colors.grey)
-  end
 end
 
 function paintIntentList()
