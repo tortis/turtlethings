@@ -119,9 +119,15 @@ function UILoop()
   end
 end
 
-function notificationLoop()
-  -- Listen for notifications from the other threads and 
-  -- broadcast them on various channels.
+function inputLoop()
+  while true do
+    local e, p1, p2, p3 = os.pullEvent()
+    if e == "mouse_click" then
+      os.queueEvent("notif", "Mouse clicked at "..p2..", "..p3)
+    elseif e == "mouse_scroll" then
+      --do nothing
+    end
+  end
 end
 
 function wirelessRequestLoop()
