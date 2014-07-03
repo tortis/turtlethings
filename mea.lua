@@ -70,6 +70,12 @@ function paintNotificationBar(msg)
   term.write(msg)
 end
 
+function paintMenu()
+  term.setCursorPos(1,3)
+  term.write("Button 1")
+  BUTTONS.add(1,3,"Button 1",  "btn1")
+end
+
 function paintIntentList()
  
 end
