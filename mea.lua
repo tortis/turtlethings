@@ -1,7 +1,5 @@
 -- ME Controller Software
- 
-os.loadAPI("queue")
- 
+
 function loadIntent(file)
   local f = fs.open(file, "r")
   if f == nil then
@@ -142,7 +140,6 @@ end
 
 INTERVAL = 10
 WIDTH, HEIGHT = term.getSize()
-NOTIF = queue.new()
 LEVELDICT = loadIntent(args[2])
   
 parallel.waitForAll(stockerLoop, UILoop)
