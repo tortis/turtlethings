@@ -1,5 +1,7 @@
 -- ME Controller Software
  
+os.loadAPI("queue")
+ 
 function loadIntent(file)
   local f = fs.open(file, "r")
   if f == nil then
@@ -45,12 +47,12 @@ function stockCycle()
     local effectiveAmt = ME.countOfItemType(tab.id, tab.meta) + tab.aug
     if effectiveAmt < tab.amt then
       ME.requestCrafting({id=tab.id,qty=tab.amt-effectiveAmt,dmg=tab.meta})
-      print("Need to craft ".. tab.amt - effectiveAmt .." ".. name)
+      os.queueEvent("notif", "Need to craft ".. tab.amt - effectiveAmt .." ".. name)
     end
     tab.aug = 0
   end
   if os.clock()-t0 > INTERVAL then
-    print("Warning: the stock cycle took more time to complete than the stock interval. This is unsafe and may eventually lead to system failure.")
+    os.queueEvent("notif", "Warning: the stock cycle took more time to complete than the stock interval. This is unsafe and may eventually lead to system failure.")
   end
 end
 
@@ -63,8 +65,14 @@ function paintTitleBar()
   term.write(textutils.formatTime(os.time(), false))
 end
 
-function paintNotificationBar()
-  
+function paintNotificationBar(msg)
+  paintutils.drawLine(1,HEIGHT,WIDTH,HEIGHT, colors.grey)
+  term.setCursorPos(2, HEIGHT)
+  term.setTextColor(colors.black)
+  textutils.slowPrint(msg)
+  sleep(1.5)
+  paintutils.drawLine(1,HEIGHT,WIDTH,HEIGHT, colors.grey)
+  end
 end
 
 function paintIntentList()
@@ -95,11 +103,17 @@ function analyticsLoop()
 end
 
 function UILoop()
+  local tid = os.startTimer(15)
   while true do
-    term.setBackgroundColor(colors.black)
-    term.clear()
-    paintTitleBar()
-    sleep(15)
+    local e,p1,p2 = os.pullEvent()
+    if e == "notif" then
+      paintNotificationBar(p1)
+    elseif e == "timer" and p1 == tid then
+      term.setBackgroundColor(colors.black)
+      term.clear()
+      paintTitleBar()
+      tid = os.startTimer(15)
+    end
   end
 end
 
@@ -128,8 +142,8 @@ end
 
 INTERVAL = 10
 WIDTH, HEIGHT = term.getSize()
-
+NOTIF = queue.new()
 LEVELDICT = loadIntent(args[2])
-print(textutils.serialize(LEVELDICT ))
+  
 parallel.waitForAll(stockerLoop, UILoop)
 -- parallel.waitForAll(stockerLoop, analyticsLoop, UILoop, notificationLoop, wirelessRequestLoop)
