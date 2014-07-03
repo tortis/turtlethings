@@ -16,7 +16,7 @@ end
     
 function popleft (list)
   local first = list.first
-  if first > list.last then error("list is empty") end
+  if first > list.last then return nil end
   local value = list[first]
   list[first] = nil        -- to allow garbage collection
   list.first = first + 1
@@ -25,7 +25,7 @@ end
     
 function popright (list)
   local last = list.last
-  if list.first > last then error("list is empty") end
+  if list.first > last then return nil end
   local value = list[last]
   list[last] = nil         -- to allow garbage collection
   list.last = last - 1
