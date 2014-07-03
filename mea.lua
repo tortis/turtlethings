@@ -67,9 +67,7 @@ function paintNotificationBar(msg)
   paintutils.drawLine(1,HEIGHT,WIDTH,HEIGHT, colors.lightGray)
   term.setCursorPos(2, HEIGHT)
   term.setTextColor(colors.black)
-  textutils.slowWrite(msg)
-  --sleep(3)
-  paintutils.drawLine(1,HEIGHT,WIDTH,HEIGHT, colors.lightGray)
+  term.write(msg)
 end
 
 function paintIntentList()
@@ -123,7 +121,9 @@ function inputLoop()
   while true do
     local e, p1, p2, p3 = os.pullEvent()
     if e == "mouse_click" then
-      os.queueEvent("notif", "Mouse clicked at "..p2..", "..p3)
+      if BUTTONS[p2][p3] ~= nil then
+        os.queueEvent("Button Clicked: "..BUTTONS[p2][p3])
+      end
     elseif e == "mouse_scroll" then
       --do nothing
     end
@@ -151,6 +151,12 @@ end
 INTERVAL = 10
 WIDTH, HEIGHT = term.getSize()
 LEVELDICT = loadIntent(args[2])
-  
+BUTTONS = {}
+function BUTTONS.add(x, y, text, name)
+  for i=1,string.len(text) do
+    BUTTONS[x+i-1][y] = name
+  end
+end
+
 parallel.waitForAll(stockerLoop, UILoop, inputLoop)
 -- parallel.waitForAll(stockerLoop, analyticsLoop, UILoop, notificationLoop, wirelessRequestLoop)
