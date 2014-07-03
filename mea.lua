@@ -123,6 +123,5 @@ WIDTH, HEIGHT = term.getSize()
 
 LEVELDICT = loadIntent(args[2])
 print(textutils.serialize(LEVELDICT ))
-stockerLoop()
 parallel.waitForAll(stockerLoop, UILoop)
 -- parallel.waitForAll(stockerLoop, analyticsLoop, UILoop, notificationLoop, wirelessRequestLoop)
