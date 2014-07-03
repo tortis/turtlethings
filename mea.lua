@@ -100,7 +100,7 @@ function analyticsLoop()
 end
 
 function UILoop()
-  term.setBackgroundColor(colors.black)
+  term.setBackgroundColor(colors.white)
   term.clear()
   paintTitleBar()
   local tid = os.startTimer(15)
@@ -110,7 +110,7 @@ function UILoop()
     if e == "notif" then
       paintNotificationBar(p1)
     elseif e == "timer" and p1 == tid then
-      term.setBackgroundColor(colors.black)
+      term.setBackgroundColor(colors.white)
       term.setCursorPos(1,1)
       term.clearLine()
       paintTitleBar()
