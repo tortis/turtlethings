@@ -54,6 +54,15 @@ function stockCycle()
   end
 end
 
+function paintTitleBar()
+  textutils.drawLine(1,1,WIDTH,1, colors.blue)
+  term.setTextColor(colors.white)
+  term.setCursorPos(2, 1)
+  term.write("bitRAKE's ME Manager")
+  term.setCursorPos(WIDTH-8,1)
+  term.write(textutils.formatTime(os.time(), false))
+end
+
 function stockerLoop()
   local tid = os.startTimer(INTERVAL)
   local done = false
@@ -78,7 +87,10 @@ function analyticsLoop()
 end
 
 function UILoop()
-  -- Allow the user to adjust settigns
+  while true do
+    paintTitleBar()
+    sleep(15)
+  end
 end
 
 function notificationLoop()
@@ -105,8 +117,10 @@ if ME == nil then
 end
 
 INTERVAL = 10
+WIDTH, HEIGHT = term.getSize()
 
 LEVELDICT = loadIntent(args[2])
 print(textutils.serialize(LEVELDICT ))
 stockerLoop()
+parallel.waitForAll(stockerLoop, UILoop)
 -- parallel.waitForAll(stockerLoop, analyticsLoop, UILoop, notificationLoop, wirelessRequestLoop)
