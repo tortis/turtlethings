@@ -72,6 +72,8 @@ end
 
 function paintMenu()
   term.setCursorPos(1,3)
+  term.setTextColor(colors.black)
+  term.setBackgroundColor(colors.gray)
   term.write("Button 1")
   BUTTONS.add(1,3,"Button 1",  "btn1")
 end
@@ -107,6 +109,7 @@ function UILoop()
   term.setBackgroundColor(colors.white)
   term.clear()
   paintTitleBar()
+  paintMenu()
   local tid = os.startTimer(15)
   os.queueEvent("notif", "Welcome!")
   while true do
