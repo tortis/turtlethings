@@ -88,6 +88,7 @@ function paintIntentList(index)
   paintutils.drawLine(leftPos,3,WIDTH,3,colors.gray)
   if #LEVELDICT > 0 then
     paintutils.drawPixel(WIDTH,(HEIGHT-4)*index/#LEVELDICT + 4,colors.green)
+    os.queueEvent("notif", "Pos: "..WIDTH..", ".. (HEIGHT-4)*index/#LEVELDICT + 4)
   end
 end
 
