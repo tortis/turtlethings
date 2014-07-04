@@ -162,6 +162,7 @@ function UILoop()
       paintIntentList(si)
     elseif e == "intent_scroll" then
       si = si + p1
+      os.queueEvent("notif", "scroll:"..p1)
     end
   end
 end
@@ -176,7 +177,6 @@ function inputLoop()
     elseif e == "mouse_scroll" then
       if SCROLLS[p2][p3] ~= nil then
         os.queueEvent(SCROLLS[p2][p3], p1)
-        os.queueEvent("notif", "Scrolly scroller")
       end
     end
   end
