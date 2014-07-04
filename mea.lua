@@ -98,7 +98,7 @@ function paintIntentList(index)
   for name, tab in pairs(LEVELDICT) do
     if i >= index and i <= i+vheight then
       if name ~= "size" then
-        local c = ME.countOfItemType({tab.id,tab.meta})
+        local c = ME.countOfItemType(tab.id, tab.meta)
         term.setCursorPos(leftPos, i + 3)
         if c < tab.amt then
           term.setBackgroundColor(colors.red)
