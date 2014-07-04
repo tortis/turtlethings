@@ -139,11 +139,13 @@ function analyticsLoop()
 end
 
 function UILoop()
+  local si = 1
   term.setBackgroundColor(colors.white)
   term.clear()
   paintTitleBar()
   paintMenu()
-  paintIntentList(1)
+  paintIntentList(si)
+  SCROLLS.add(WIDTH/2,4,WIDTH-1,HEIGHT-1,"intent_scroll")
   local tid = os.startTimer(15)
   os.queueEvent("notif", "Welcome!")
   while true do
@@ -157,7 +159,9 @@ function UILoop()
       paintTitleBar()
       tid = os.startTimer(15)
     elseif e == "stock_complete" then
-      paintIntentList(1)
+      paintIntentList(si)
+    elseif e == "intent_scroll" then
+      si = si + p1
     end
   end
 end
@@ -170,7 +174,9 @@ function inputLoop()
         os.queueEvent("notif", "Button Clicked: "..BUTTONS[p2][p3])
       end
     elseif e == "mouse_scroll" then
-      --do nothing
+      if SCROLLS[p2][p3] ~= nil then
+        os.queueEvent(SCROLLS[p2][p3], p1)
+      end
     end
   end
 end
@@ -203,6 +209,17 @@ end
 function BUTTONS.add(x, y, text, name)
   for i=1,string.len(text) do
     BUTTONS[x+i-1][y] = name
+  end
+end
+SCROLLS = {}
+for i=1,WIDTH do
+  SCROLLS[i] = {}
+end
+functions SCROLLS.add(x1, y1, x2, y2, name)
+  for i=x1, x2 do
+    for j=y1,y2 do
+      SCROLLS[i,j] = name
+    end
   end
 end
 
