@@ -170,7 +170,6 @@ function UILoop()
       si = si + p1
       if si < 1 then si = 1 end
       if si > #LEVELDICT then si = #LEVELDICT end
-      os.queueEvent("notif", "scroll:"..p1..", "..si)
       paintIntentList(si)
     end
   end
