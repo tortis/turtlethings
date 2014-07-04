@@ -124,7 +124,7 @@ function paintIntentList(index)
 end
 
 function stockerLoop()
-  local tid = os.startTimer(INTERVAL)
+  local tid = os.startTimer(1)
   local done = false
   
   while not done do
