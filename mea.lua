@@ -48,7 +48,7 @@ function stockCycle()
       local effectiveAmt = ME.countOfItemType(tab.id, tab.meta) + tab.aug
       if effectiveAmt < tab.amt then
         ME.requestCrafting({id=tab.id,qty=tab.amt-effectiveAmt,dmg=tab.meta})
-        os.queueEvent("notif", "Crafting ".. tab.amt - effectiveAmt .." ".. name)
+        --os.queueEvent("notif", "Crafting ".. tab.amt - effectiveAmt .." ".. name)
       end
       tab.aug = 0
     end
