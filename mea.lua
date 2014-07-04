@@ -92,14 +92,12 @@ function paintIntentList(index)
   term.setBackgroundColor(colors.white)
   term.write("Stocking:")
   paintutils.drawLine(leftPos,3,WIDTH,3,colors.gray)
-  if LEVELDICT.size > 0 then
-    paintutils.drawPixel(WIDTH,vheight*index/LEVELDICT.size+ 3,colors.black)
-  end
   local i = 1
   for name, tab in pairs(LEVELDICT) do
     if i >= index and i <= index+vheight then
       if name ~= "size" then
         local c = ME.countOfItemType(tab.id, tab.meta)
+        paintutils.dawLine(leftPos, i+3, WIDTH, i+3, colors.white)
         term.setCursorPos(leftPos, i + 3)
         if c < tab.amt then
           term.setBackgroundColor(colors.red)
@@ -111,6 +109,9 @@ function paintIntentList(index)
         i = i + 1
       end
     end
+  end
+  if LEVELDICT.size > 0 then
+    paintutils.drawPixel(WIDTH,vheight*index/LEVELDICT.size+ 3,colors.black)
   end
 end
 
