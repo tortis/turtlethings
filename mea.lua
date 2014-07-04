@@ -218,7 +218,7 @@ end
 function SCROLLS.add(x1, y1, x2, y2, name)
   for i=x1, x2 do
     for j=y1,y2 do
-      SCROLLS[i,j] = name
+      SCROLLS[i][j] = name
     end
   end
 end
