@@ -160,9 +160,8 @@ function UILoop()
       term.setCursorPos(1,1)
       term.clearLine()
       paintTitleBar()
-      tid = os.startTimer(15)
-    elseif e == "stock_complete" then
       paintIntentList(si)
+      tid = os.startTimer(15)
     elseif e == "intent_scroll" then
       si = si + p1
       os.queueEvent("notif", "scroll:"..p1..", "..si)
