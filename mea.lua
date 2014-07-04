@@ -27,6 +27,7 @@ function loadIntent(file)
       r[name].meta = tonumber(le[2])
       r[name].amt = tonumber(le[3])
       r[name].aug = 0
+      r[name].c = 0
       r.size = r.size + 1
     end
     line = f.readLine()
@@ -45,7 +46,8 @@ function stockCycle()
 
   for name, tab in pairs(LEVELDICT) do
     if name ~= "size" then
-      local effectiveAmt = ME.countOfItemType(tab.id, tab.meta) + tab.aug
+      tab.c = ME.countOfItemType(tab.id, tab.meta)
+      local effectiveAmt = c + tab.aug
       if effectiveAmt < tab.amt then
         ME.requestCrafting({id=tab.id,qty=tab.amt-effectiveAmt,dmg=tab.meta})
         --os.queueEvent("notif", "Crafting ".. tab.amt - effectiveAmt .." ".. name)
@@ -99,15 +101,14 @@ function paintIntentList(index)
   for name, tab in pairs(LEVELDICT) do
     if i >= index and i <= index+vheight then
       if name ~= "size" then
-        local c = ME.countOfItemType(tab.id, tab.meta)
         term.setCursorPos(leftPos, i + 3)
-        if c < tab.amt then
+        if tab.c < tab.amt then
           term.setBackgroundColor(colors.red)
         else
           term.setBackgroundColor(colors.green)
         end
         term.setTextColor(colors.black)
-        term.write(name..":"..tab.amt.."@"..c)
+        term.write(name..":"..tab.amt.."@"..tab.c)
         i = i + 1
       end
     end
