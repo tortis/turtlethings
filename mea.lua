@@ -97,7 +97,7 @@ function paintIntentList(index)
   end
   local i = 1
   for name, tab in pairs(LEVELDICT) do
-    if i >= index and i <= i+vheight then
+    if i >= index and i <= index+vheight then
       if name ~= "size" then
         local c = ME.countOfItemType(tab.id, tab.meta)
         term.setCursorPos(leftPos, i + 3)
@@ -108,6 +108,7 @@ function paintIntentList(index)
         end
         term.setTextColor(colors.black)
         term.write(name.." : "..tab.amt.." @ "..c)
+        i = i + 1
       end
     end
   end
