@@ -80,7 +80,7 @@ end
 
 function paintIntentList()
   local leftPos = WIDTH/2
-  paintutils.drawLine(leftPos-1, 1, leftPos-1, HEIGHT-1, colors.black)
+  paintutils.drawLine(leftPos-1, 2, leftPos-1, HEIGHT-1, colors.black)
   term.setCursorPos(leftPos,2)
   term.setTextColor(colors.black)
   term.setBackgroundColor(colors.white)
