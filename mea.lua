@@ -104,7 +104,8 @@ function paintIntentList(index)
     paintutils.drawLine(leftPos, j, WIDTH, j, colors.white)
   end
   local j = 1
-  for i=index,index+vheight do
+  local tov = math.min(index+vheight, #LEVELDICT)
+  for i=index,tov do
     local tab = LEVELDICT[i]
     term.setCursorPos(leftPos, j + 3)
     if tab.c < tab.amt then
@@ -152,7 +153,7 @@ function UILoop()
   paintMenu()
   paintIntentList(si)
   SCROLLS.add(math.floor(WIDTH/2), 4, WIDTH-1, HEIGHT-1, "intent_scroll")
-  local tid = os.startTimer(15)
+  local tid = os.startTimer(2)
   os.queueEvent("notif", "Welcome!")
   while true do
     local e,p1,p2 = os.pullEvent()
@@ -167,6 +168,8 @@ function UILoop()
       tid = os.startTimer(15)
     elseif e == "intent_scroll" then
       si = si + p1
+      if si < 1 then si = 1 end
+      if si > #LEVELDICT then si = #LEVELDICT end
       os.queueEvent("notif", "scroll:"..p1..", "..si)
       paintIntentList(si)
     end
