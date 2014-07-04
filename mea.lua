@@ -215,7 +215,7 @@ SCROLLS = {}
 for i=1,WIDTH do
   SCROLLS[i] = {}
 end
-functions SCROLLS.add(x1, y1, x2, y2, name)
+function SCROLLS.add(x1, y1, x2, y2, name)
   for i=x1, x2 do
     for j=y1,y2 do
       SCROLLS[i,j] = name
