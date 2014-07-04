@@ -163,6 +163,7 @@ function UILoop()
     elseif e == "intent_scroll" then
       si = si + p1
       os.queueEvent("notif", "scroll:"..p1..", "..si)
+      paintIntentList(si)
     end
   end
 end
