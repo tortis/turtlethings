@@ -104,7 +104,7 @@ function paintIntentList(index)
     paintutils.drawLine(leftPos, j, WIDTH, j, colors.white)
   end
   local j = 1
-  local tov = math.min(index+vheight, #LEVELDICT)
+  local tov = math.min(index+vheight-1, #LEVELDICT)
   for i=index,tov do
     local tab = LEVELDICT[i]
     term.setCursorPos(leftPos, j + 3)
