@@ -45,7 +45,7 @@ function stockCycle()
   for name, tab in pairs(LEVELDICT) do
     if name ~= "size" then
       tab.c = ME.countOfItemType(tab.id, tab.meta)
-      if (jobsNameMap[name]) then
+      if jobsNameMap[name] ~= nil then
         tab.cc = jobsNameMap[name]
       else
         tab.cc = 0
