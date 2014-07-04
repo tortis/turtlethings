@@ -47,7 +47,7 @@ function stockCycle()
   for name, tab in pairs(LEVELDICT) do
     if name ~= "size" then
       tab.c = ME.countOfItemType(tab.id, tab.meta)
-      local effectiveAmt = c + tab.aug
+      local effectiveAmt = tab.c + tab.aug
       if effectiveAmt < tab.amt then
         ME.requestCrafting({id=tab.id,qty=tab.amt-effectiveAmt,dmg=tab.meta})
         --os.queueEvent("notif", "Crafting ".. tab.amt - effectiveAmt .." ".. name)
