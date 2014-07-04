@@ -92,17 +92,21 @@ function paintIntentList(index)
   term.write("Stocking:")
   paintutils.drawLine(leftPos,3,WIDTH,3,colors.gray)
   if LEVELDICT.size > 0 then
-    paintutils.drawPixel(WIDTH,vheight*index/LEVELDICT.size+ 3,colors.green)
-    os.queueEvent("notif", "Pos: "..WIDTH..", ".. (HEIGHT-4)*index/LEVELDICT.size + 3)
+    paintutils.drawPixel(WIDTH,vheight*index/LEVELDICT.size+ 3,colors.black)
   end
   local i = 1
   for name, tab in pairs(LEVELDICT) do
     if i >= index and i <= i+vheight then
       if name ~= "size" then
+        local c = ME.countOfItemType({tab.id,tab.meta})
         term.setCursorPos(leftPos, i + 3)
-        term.setBackgroundColor(colors.white)
+        if c < tab.amt then
+          term.setBackgroundColor(colors.red)
+        else
+          term.setBackgroundColor(colors.green)
+        end
         term.setTextColor(colors.black)
-        term.write(name.." : "..tab.amt)
+        term.write(name.." : "..tab.amt.." @ "..c)
       end
     end
   end
