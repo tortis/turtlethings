@@ -71,15 +71,21 @@ function paintNotificationBar(msg)
 end
 
 function paintMenu()
-  term.setCursorPos(1,3)
+  term.setCursorPos(2,3)
   term.setTextColor(colors.black)
   term.setBackgroundColor(colors.gray)
   term.write("Button 1")
-  BUTTONS.add(1,3,"Button 1",  "btn1")
+  BUTTONS.add(2,3,"Button 1",  "btn1")
 end
 
 function paintIntentList()
- 
+  local leftPos = WIDTH/2
+  paintutils.drawLine(leftPos-1, 1, leftPos-1, HEIGHT-1, colors.black)
+  term.setCursorPos(leftPos,2)
+  term.setTextColor(colors.black)
+  term.setBackgroundColor(colors.white)
+  term.write("Stocking:")
+  paintutils.drawLine(leftPos,3,WIDTH,3,colors.black)
 end
 
 function stockerLoop()
@@ -110,6 +116,7 @@ function UILoop()
   term.clear()
   paintTitleBar()
   paintMenu()
+  paintIntentList()
   local tid = os.startTimer(15)
   os.queueEvent("notif", "Welcome!")
   while true do
