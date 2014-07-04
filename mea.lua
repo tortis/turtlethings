@@ -7,6 +7,7 @@ function loadIntent(file)
     return
   end
   local r = {}
+  r.size = 0
   local line = f.readLine()
   while line ~= nil do
     if line ~= "" then
@@ -26,6 +27,7 @@ function loadIntent(file)
       r[name].meta = tonumber(le[2])
       r[name].amt = tonumber(le[3])
       r[name].aug = 0
+      r.size = r.size + 1
     end
     line = f.readLine()
   end
@@ -86,8 +88,8 @@ function paintIntentList(index)
   term.setBackgroundColor(colors.white)
   term.write("Stocking:")
   paintutils.drawLine(leftPos,3,WIDTH,3,colors.gray)
-  if #LEVELDICT > 0 then
-    paintutils.drawPixel(WIDTH,(HEIGHT-4)*index/#LEVELDICT + 4,colors.green)
+  if LEVLEDICT.size > 0 then
+    paintutils.drawPixel(WIDTH,(HEIGHT-4)*index/LEVELDICT.size() + 4,colors.green)
     os.queueEvent("notif", "Pos: "..WIDTH..", ".. (HEIGHT-4)*index/#LEVELDICT + 4)
   end
 end
