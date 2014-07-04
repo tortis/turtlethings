@@ -107,7 +107,7 @@ function paintIntentList(index)
           term.setBackgroundColor(colors.green)
         end
         term.setTextColor(colors.black)
-        term.write(name.." : "..tab.amt.." @ "..c)
+        term.write(name..":"..tab.amt.."@"..c)
         i = i + 1
       end
     end
