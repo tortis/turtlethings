@@ -96,7 +96,7 @@ function paintIntentList(index)
     os.queueEvent("notif", "Pos: "..WIDTH..", ".. (HEIGHT-4)*index/LEVELDICT.size + 3)
   end
   local i = 1
-  for name, tab in pairs(ITEMDICT) do
+  for name, tab in pairs(LEVELDICT) do
     if i >= index and i <= i+vheight then
       if name ~= "size" then
         term.setCursorPos(leftPos, i + 3)
