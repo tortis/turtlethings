@@ -78,14 +78,17 @@ function paintMenu()
   BUTTONS.add(2,3,"Button 1",  "btn1")
 end
 
-function paintIntentList()
+function paintIntentList(index)
   local leftPos = WIDTH/2
-  paintutils.drawLine(leftPos-1, 2, leftPos-1, HEIGHT-1, colors.black)
+  paintutils.drawLine(leftPos-1, 2, leftPos-1, HEIGHT-1, colors.gray)
   term.setCursorPos(leftPos,2)
   term.setTextColor(colors.black)
   term.setBackgroundColor(colors.white)
   term.write("Stocking:")
-  paintutils.drawLine(leftPos,3,WIDTH,3,colors.black)
+  paintutils.drawLine(leftPos,3,WIDTH,3,colors.gray)
+  if #ITEMDICT > 0 then
+    paintutils.drawPixel(WIDTH,(HEIGHT-4)*index/#ITEMDICT + 3,colors.green)
+  end
 end
 
 function stockerLoop()
