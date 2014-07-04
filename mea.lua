@@ -97,7 +97,7 @@ function paintIntentList(index)
     if i >= index and i <= index+vheight then
       if name ~= "size" then
         local c = ME.countOfItemType(tab.id, tab.meta)
-        paintutils.dawLine(leftPos, i+3, WIDTH, i+3, colors.white)
+        paintutils.drawLine(leftPos, i+3, WIDTH, i+3, colors.white)
         term.setCursorPos(leftPos, i + 3)
         if c < tab.amt then
           term.setBackgroundColor(colors.red)
