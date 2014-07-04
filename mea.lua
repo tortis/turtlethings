@@ -98,10 +98,11 @@ function paintIntentList(index)
     paintutils.drawLine(leftPos, j, WIDTH, j, colors.white)
   end
   local i = 1
+  local j = 1
   for name, tab in pairs(LEVELDICT) do
     if i >= index and i <= index+vheight then
       if name ~= "size" then
-        term.setCursorPos(leftPos, i + 3)
+        term.setCursorPos(leftPos, j + 3)
         if tab.c < tab.amt then
           term.setBackgroundColor(colors.red)
         else
@@ -109,9 +110,10 @@ function paintIntentList(index)
         end
         term.setTextColor(colors.black)
         term.write(name..":"..tab.amt.."@"..tab.c)
-        i = i + 1
+        j = j + 1
       end
     end
+    i = i + 1
   end
   if LEVELDICT.size > 0 then
     paintutils.drawPixel(WIDTH,vheight*index/LEVELDICT.size+ 3,colors.black)
