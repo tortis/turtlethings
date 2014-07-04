@@ -53,6 +53,7 @@ function stockCycle()
       tab.aug = 0
     end
   end
+  os.queueEvent("stock_complete")
   if os.clock()-t0 > INTERVAL then
     os.queueEvent("notif", "Warning: the stock cycle took more time to complete than the stock interval. This is unsafe and may eventually lead to system failure.")
   end
@@ -153,6 +154,8 @@ function UILoop()
       term.clearLine()
       paintTitleBar()
       tid = os.startTimer(15)
+    elseif e == "stock_complete" then
+      paintIntentList(1)
     end
   end
 end
