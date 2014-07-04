@@ -118,7 +118,7 @@ function paintIntentList(index)
     j = j + 1
   end
   if LEVELDICT.size > 0 then
-    paintutils.drawPixel(WIDTH,vheight*index/LEVELDICT.size+ 3,colors.black)
+    paintutils.drawPixel(WIDTH,vheight*index/LEVELDICT.size + 4,colors.black)
   end
 end
 
