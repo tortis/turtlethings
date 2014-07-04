@@ -91,8 +91,8 @@ function paintIntentList(index)
   term.write("Stocking:")
   paintutils.drawLine(leftPos,3,WIDTH,3,colors.gray)
   if LEVELDICT.size > 0 then
-    paintutils.drawPixel(WIDTH,(HEIGHT-4)*index/LEVELDICT.size+ 4,colors.green)
-    os.queueEvent("notif", "Pos: "..WIDTH..", ".. (HEIGHT-4)*index/LEVELDICT.size + 4)
+    paintutils.drawPixel(WIDTH,(HEIGHT-4)*index/LEVELDICT.size+ 3,colors.green)
+    os.queueEvent("notif", "Pos: "..WIDTH..", ".. (HEIGHT-4)*index/LEVELDICT.size + 3)
   end
 end
 
