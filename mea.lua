@@ -145,8 +145,7 @@ function UILoop()
   paintTitleBar()
   paintMenu()
   paintIntentList(si)
-  print(WIDTH/2 ..", ".. 4 .. ", ".. WIDTH-1 .. ", ".. HEIGHT-1)
-  SCROLLS.add(WIDTH/2, 4, WIDTH-1, HEIGHT-1, "intent_scroll")
+  SCROLLS.add(math.floor(WIDTH/2), 4, WIDTH-1, HEIGHT-1, "intent_scroll")
   local tid = os.startTimer(15)
   os.queueEvent("notif", "Welcome!")
   while true do
@@ -177,6 +176,7 @@ function inputLoop()
     elseif e == "mouse_scroll" then
       if SCROLLS[p2][p3] ~= nil then
         os.queueEvent(SCROLLS[p2][p3], p1)
+        os.queueEvent("notif", "Scrolly scroller")
       end
     end
   end
