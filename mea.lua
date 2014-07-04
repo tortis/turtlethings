@@ -9,6 +9,7 @@ function loadIntent(file)
   local r = {}
   r.size = 0
   local line = f.readLine()
+  local n = 1
   while line ~= nil do
     if line ~= "" then
       local index = 1
@@ -22,13 +23,15 @@ function loadIntent(file)
         le[index] = i
         index = index + 1
       end
-      r[name] = {}
-      r[name].id = tonumber(le[1])
-      r[name].meta = tonumber(le[2])
-      r[name].amt = tonumber(le[3])
-      r[name].aug = 0
-      r[name].c = 0
+      r[n] = {}
+      r[n].id = tonumber(le[1])
+      r[n].name = name
+      r[n].meta = tonumber(le[2])
+      r[n].amt = tonumber(le[3])
+      r[n].aug = 0
+      r[n].c = 0
       r.size = r.size + 1
+      n = n + 1
     end
     line = f.readLine()
   end
@@ -42,11 +45,11 @@ function stockCycle()
   for k,v in pairs(jobs) do
     jobsNameMap[v.name] = v.qty
   end
-  for name, tab in pairs(LEVELDICT) do
-    if name ~= "size" then
+  for _, tab in ipairs(LEVELDICT) do
+    if tab.name ~= "size" then
       tab.c = ME.countOfItemType(tab.id, tab.meta)
-      if jobsNameMap[name] ~= nil then
-        tab.cc = jobsNameMap[name]
+      if jobsNameMap[tab.name] ~= nil then
+        tab.cc = jobsNameMap[tab.name]
       else
         tab.cc = 0
       end
@@ -100,23 +103,18 @@ function paintIntentList(index)
   for j=4,HEIGHT-1 do
     paintutils.drawLine(leftPos, j, WIDTH, j, colors.white)
   end
-  local i = 1
   local j = 1
-  for name, tab in pairs(LEVELDICT) do
-    if i >= index and i < index+vheight then
-      if name ~= "size" then
-        term.setCursorPos(leftPos, j + 3)
-        if tab.c < tab.amt then
-          term.setBackgroundColor(colors.red)
-        else
-          term.setBackgroundColor(colors.green)
-        end
-        term.setTextColor(colors.black)
-        term.write(name..":"..tab.amt.."@"..tab.c)
-        j = j + 1
-      end
+  for i=index,index+vheight do
+    local tab = LEVELDICT[i]
+    term.setCursorPos(leftPos, j + 3)
+    if tab.c < tab.amt then
+      term.setBackgroundColor(colors.red)
+    else
+      term.setBackgroundColor(colors.green)
     end
-    i = i + 1
+    term.setTextColor(colors.black)
+    term.write(tab.name..":"..tab.amt.."@"..tab.c)
+    j = j + 1
   end
   if LEVELDICT.size > 0 then
     paintutils.drawPixel(WIDTH,vheight*index/LEVELDICT.size+ 3,colors.black)
