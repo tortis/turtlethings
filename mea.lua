@@ -38,16 +38,14 @@ end
 function stockCycle()
   local t0 = os.clock()
   local jobs = ME.getJobList()
+  local jobsNameMap = {}
   for k,v in pairs(jobs) do
-    if LEVELDICT[v.name] ~= nil then
-      LEVELDICT[v.name].aug = v.qty
-    end
+    jobsNameMap[v.name] = v.qty
   end
-
   for name, tab in pairs(LEVELDICT) do
     if name ~= "size" then
       tab.c = ME.countOfItemType(tab.id, tab.meta)
-      local effectiveAmt = tab.c + tab.aug
+      local effectiveAmt = tab.c + jobsNameMap[name]
       if effectiveAmt < tab.amt then
         ME.requestCrafting({id=tab.id,qty=tab.amt-effectiveAmt,dmg=tab.meta})
         --os.queueEvent("notif", "Crafting ".. tab.amt - effectiveAmt .." ".. name)
