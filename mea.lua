@@ -99,7 +99,7 @@ function paintIntentList(index)
   term.setTextColor(colors.black)
   term.setBackgroundColor(colors.white)
   term.write("Stocking:")
-  paintutils.drawLine(leftPos,3,WIDTH,3,colors.gray)
+  paintutils.drawLine(leftPos,3,WIDTH,3,colors.lightGray)
   for j=4,HEIGHT-1 do
     paintutils.drawLine(leftPos, j, WIDTH, j, colors.white)
   end
@@ -118,7 +118,7 @@ function paintIntentList(index)
     j = j + 1
   end
   if LEVELDICT.size > 0 then
-    paintutils.drawLine(WIDTH,4,WIDTH,HEIGHT-1,colors.lightGray)
+    paintutils.drawLine(WIDTH,4,WIDTH,HEIGHT-1,colors.gray)
     paintutils.drawPixel(WIDTH,vheight*index/LEVELDICT.size + 4,colors.black)
   end
 end
