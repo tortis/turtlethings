@@ -87,7 +87,7 @@ function paintIntentList(index)
   term.write("Stocking:")
   paintutils.drawLine(leftPos,3,WIDTH,3,colors.gray)
   if #ITEMDICT > 0 then
-    paintutils.drawPixel(WIDTH,(HEIGHT-4)*index/#ITEMDICT + 3,colors.green)
+    paintutils.drawPixel(WIDTH,(HEIGHT-4)*index/#ITEMDICT + 4,colors.green)
   end
 end
 
@@ -119,7 +119,7 @@ function UILoop()
   term.clear()
   paintTitleBar()
   paintMenu()
-  paintIntentList()
+  paintIntentList(1)
   local tid = os.startTimer(15)
   os.queueEvent("notif", "Welcome!")
   while true do
