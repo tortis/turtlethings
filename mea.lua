@@ -86,8 +86,8 @@ function paintIntentList(index)
   term.setBackgroundColor(colors.white)
   term.write("Stocking:")
   paintutils.drawLine(leftPos,3,WIDTH,3,colors.gray)
-  if #ITEMDICT > 0 then
-    paintutils.drawPixel(WIDTH,(HEIGHT-4)*index/#ITEMDICT + 4,colors.green)
+  if #LEVELDICT > 0 then
+    paintutils.drawPixel(WIDTH,(HEIGHT-4)*index/#LEVELDICT + 4,colors.green)
   end
 end
 
