@@ -44,12 +44,14 @@ function stockCycle()
   end
 
   for name, tab in pairs(LEVELDICT) do
-    local effectiveAmt = ME.countOfItemType(tab.id, tab.meta) + tab.aug
-    if effectiveAmt < tab.amt then
-      ME.requestCrafting({id=tab.id,qty=tab.amt-effectiveAmt,dmg=tab.meta})
-      os.queueEvent("notif", "Crafting ".. tab.amt - effectiveAmt .." ".. name)
+    if name ~= "size" then
+      local effectiveAmt = ME.countOfItemType(tab.id, tab.meta) + tab.aug
+      if effectiveAmt < tab.amt then
+        ME.requestCrafting({id=tab.id,qty=tab.amt-effectiveAmt,dmg=tab.meta})
+        os.queueEvent("notif", "Crafting ".. tab.amt - effectiveAmt .." ".. name)
+      end
+      tab.aug = 0
     end
-    tab.aug = 0
   end
   if os.clock()-t0 > INTERVAL then
     os.queueEvent("notif", "Warning: the stock cycle took more time to complete than the stock interval. This is unsafe and may eventually lead to system failure.")
