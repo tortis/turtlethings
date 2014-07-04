@@ -100,7 +100,7 @@ function paintIntentList(index)
   local i = 1
   local j = 1
   for name, tab in pairs(LEVELDICT) do
-    if i >= index and i <= index+vheight then
+    if i >= index and i < index+vheight then
       if name ~= "size" then
         term.setCursorPos(leftPos, j + 3)
         if tab.c < tab.amt then
