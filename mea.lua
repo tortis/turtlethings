@@ -182,7 +182,7 @@ function paintIntentList(index, selected)
     end
     if i == selected then term.setBackgroundColor(colors.yellow) end
     term.setTextColor(colors.black)
-    local text = tab.name..":"..tab.amt.."@"..tab.c
+    local text = tab.name..": "..tab.c.." / "..tab.amt
     BUTTONS.add(leftPos,j + 3,WIDTH-leftPos, i)
     term.write(text)
     j = j + 1
