@@ -35,7 +35,17 @@ function loadIntent(file)
     end
     line = f.readLine()
   end
+  f.close()
   return r
+end
+
+function saveIntent(file)
+  local f = fs.open(file, "w")
+  assert (f ~= nil, "The intent file could not be opened to write to.")
+  for i,tab in ipairs(LEVELDICT) do
+    f.writeLine(tab.name..":"..tab.id..":"..tab.meta..":"..tab.amt)
+  end
+  f.close()
 end
 
 function stockCycle()
@@ -135,7 +145,7 @@ function editEntry(id)
   term.write("New Level: ")
   local nl = tonumber(io.read())
   while nl == nil or nl < 1 do
-    print("Please input a number greater than 0")
+    print("Input a number")
     term.write("New Level: ")
     nl = tonumber(io.read())
   end
@@ -249,6 +259,7 @@ function UILoop()
         editEntry(tonumber(itr()))
         paintMenu(selected)
         paintIntentList(si, selected)
+        saveIntent(args[2])
       elseif string.sub(p1,2,3) == "rm" then
         local itr = string.gmatch(p1, "%d+")
         local n = tonumber(itr())
