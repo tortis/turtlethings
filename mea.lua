@@ -451,10 +451,11 @@ end
 -------------------------------------------------
 -- Global Variables
 -------------------------------------------------
+ARGS = {...}
 INTERVAL = 10
 PAUSED = false
 WIDTH, HEIGHT = term.getSize()
-INTENTFILE = args[2]
+INTENTFILE = ARGS[2]
 LEVELDICT = loadIntent(INTENTFILE)
 BUTTONS = {}
 SCROLLS = {}
@@ -483,13 +484,12 @@ end
 -------------------------------------------------
 -- Main Program
 -------------------------------------------------
-local args = {...}
-if #args < 1  or #args > 2 then
+if #ARGS < 1  or #ARGS > 2 then
   printUsage()
   return
 end
  
-ME = peripheral.wrap(args[1])
+ME = peripheral.wrap(ARGS[1])
 if ME == nil then
   print("No peripheral was found on the specified side.")
   return
