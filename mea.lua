@@ -456,7 +456,7 @@ INTERVAL = 10
 PAUSED = false
 WIDTH, HEIGHT = term.getSize()
 INTENTFILE = ARGS[2]
-LEVELDICT = loadIntent(INTENTFILE)
+LEVELDICT = {}
 BUTTONS = {}
 SCROLLS = {}
 
@@ -488,6 +488,8 @@ if #ARGS < 1  or #ARGS > 2 then
   printUsage()
   return
 end
+
+LEVELDICT = loadIntent(INTENTFILE)
  
 ME = peripheral.wrap(ARGS[1])
 if ME == nil then
