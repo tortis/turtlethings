@@ -87,7 +87,7 @@ end
 
 function getNumber()
   local n = tonumber(io.read())
-  while n == nil or n < 1 do
+  while n == nil or n < 0 do
     print("Input a number")
     term.write(" : ")
     n = tonumber(io.read())
@@ -322,7 +322,7 @@ function UILoop()
         paintMenu(selected)
       elseif p1 == "create" then
         createEntry()
-        selected = LEVELDICT[#LEVELDICT]
+        selected = #LEVELDICT
         paintMenu(selected)
         paintIntentList(si, selected)
         tid = os.startTimer(1)
