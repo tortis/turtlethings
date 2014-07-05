@@ -91,7 +91,7 @@ function paintMenu()
   BUTTONS.add(2,3,"Button 1",  "btn1")
 end
 
-function paintIntentList(index)
+function paintIntentList(index, selected)
   local leftPos = WIDTH/2
   local vheight = HEIGHT-5
   paintutils.drawLine(leftPos-1, 2, leftPos-1, HEIGHT-1, colors.gray)
@@ -113,8 +113,11 @@ function paintIntentList(index)
     else
       term.setBackgroundColor(colors.green)
     end
+    if i == selected then term.setBackgroundColor(colors.yellow) end
     term.setTextColor(colors.black)
-    term.write(tab.name..":"..tab.amt.."@"..tab.c)
+    local text = tab.name..":"..tab.amt.."@"..tab.c
+    BUTTONS.add(leftPos,j + 3,text, i)
+    term.write(text)
     j = j + 1
   end
   if LEVELDICT.size > 0 then
@@ -148,11 +151,12 @@ end
 
 function UILoop()
   local si = 1
+  local selected = -1
   term.setBackgroundColor(colors.white)
   term.clear()
   paintTitleBar()
   paintMenu()
-  paintIntentList(si)
+  paintIntentList(si, selected)
   SCROLLS.add(math.floor(WIDTH/2), 4, WIDTH-1, HEIGHT-1, "intent_scroll")
   local tid = os.startTimer(2)
   os.queueEvent("notif", "Welcome!")
@@ -165,13 +169,18 @@ function UILoop()
       term.setCursorPos(1,1)
       term.clearLine()
       paintTitleBar()
-      paintIntentList(si)
+      paintIntentList(si, selected)
       tid = os.startTimer(15)
     elseif e == "intent_scroll" then
       si = si + p1
       if si < 1 then si = 1 end
       if si > #LEVELDICT then si = #LEVELDICT end
-      paintIntentList(si)
+      paintIntentList(si, selected)
+    elseif e == "button" then
+      if type(p1) == "number" then
+        selected = p1
+        paintIntentList(si, selected)
+      end
     end
   end
 end
@@ -181,7 +190,7 @@ function inputLoop()
     local e, p1, p2, p3 = os.pullEvent()
     if e == "mouse_click" then
       if BUTTONS[p2][p3] ~= nil then
-        os.queueEvent("notif", "Button Clicked: "..BUTTONS[p2][p3])
+        os.queueEvent("button", BUTTONS[p2][p3])
       end
     elseif e == "mouse_scroll" then
       if SCROLLS[p2][p3] ~= nil then
