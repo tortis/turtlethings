@@ -314,7 +314,7 @@ function UILoop()
     local e,p1,p2 = os.pullEvent()
     if e == "notif" then
       paintNotificationBar(p1, cap)
-    elseif e == "timer"
+    elseif e == "timer" then
       if p1 == tid then
         term.setBackgroundColor(colors.white)
         term.setCursorPos(1,1)
@@ -322,7 +322,7 @@ function UILoop()
         paintTitleBar()
         paintIntentList(si, selected)
         tid = os.startTimer(INTERVAL)
-      elseif pid == captid
+      elseif pid == captid then
         local tb = ME.getTotalBytes()
         local fb = ME.getFreeBytes()
         cap = math.floor(tb-fb)/tb)
