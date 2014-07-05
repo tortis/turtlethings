@@ -88,6 +88,7 @@ function clearMenu(width)
     paintutils.drawLine(1,i,width,i,color.white)
     for j=1,width do
       BUTTONS[j][i] = nil
+    end
   end
 end
 
