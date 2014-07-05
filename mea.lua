@@ -83,19 +83,35 @@ function paintNotificationBar(msg)
   term.write(msg)
 end
 
+function clearMenu(width)
+  for i=2,HEIGHT-1 do
+    paintutils.drawLine(1,i,width,i,color.white)
+    for j=1,width do
+      BUTTONS[j][i] = nil
+  end
+end
+
 function paintMenu(selected)
+  local rightPos = math.floor(WIDTH/2-6)
+  clearMenu(width)
   if selected < 0 then
     term.setCursorPos(2,3)
     term.setTextColor(colors.black)
     term.setBackgroundColor(colors.gray)
-    term.write("Button 1")
-    BUTTONS.add(2,3, 8, "btn1")
+    term.write("Exit")
+    BUTTONS.add(2, 3, 4, "exit")
   else
-    term.setCursorPos(2,3)
+    term.setCursorPos(rightPos-7,HEIGHT-2)
     term.setTextColor(colors.black)
     term.setBackgroundColor(colors.lightGray)
     term.write("Cancel")
-    BUTTONS.add(2,3,6,"cancel")
+    BUTTONS.add(rightPos-7,HEIGHT-2,6,"cancel")
+  end
+end
+
+function clearIntentList(leftPos)
+  for j=4,HEIGHT-1 do
+    paintutils.drawLine(leftPos, j, WIDTH, j, colors.white)
   end
 end
 
@@ -108,9 +124,8 @@ function paintIntentList(index, selected)
   term.setBackgroundColor(colors.white)
   term.write("Stocking:")
   paintutils.drawLine(leftPos,3,WIDTH,3,colors.lightGray)
-  for j=4,HEIGHT-1 do
-    paintutils.drawLine(leftPos, j, WIDTH, j, colors.white)
-  end
+  
+  clearIntentList(leftPos)
   local j = 1
   local tov = math.min(index+vheight, #LEVELDICT)
   for i=index,tov do
@@ -128,6 +143,7 @@ function paintIntentList(index, selected)
     term.write(text)
     j = j + 1
   end
+  -- ScrollBar
   if LEVELDICT.size > 0 then
     paintutils.drawLine(WIDTH,4,WIDTH,HEIGHT-1,colors.gray)
     paintutils.drawPixel(WIDTH,vheight*index/LEVELDICT.size + 4,colors.black)
@@ -193,6 +209,8 @@ function UILoop()
         selected = -1
         paintIntentList(si, selected)
         paintMenu(selected)
+      elseif p1 == "exit" then
+        return
       end
     end
   end
@@ -255,5 +273,5 @@ function SCROLLS.add(x1, y1, x2, y2, name)
   end
 end
 
-parallel.waitForAll(stockerLoop, UILoop, inputLoop)
+parallel.waitForAny(stockerLoop, UILoop, inputLoop)
 -- parallel.waitForAll(stockerLoop, analyticsLoop, UILoop, notificationLoop, wirelessRequestLoop)
