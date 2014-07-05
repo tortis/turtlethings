@@ -322,7 +322,7 @@ function UILoop()
         paintTitleBar()
         paintIntentList(si, selected)
         tid = os.startTimer(INTERVAL)
-      elseif pid == captid then
+      elseif p1 == captid then
         local tb = ME.getTotalBytes()
         local fb = ME.getFreeBytes()
         cap = math.floor((tb-fb)/tb)
