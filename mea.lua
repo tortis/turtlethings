@@ -243,6 +243,7 @@ function UILoop()
       elseif p1 == "cancel" then
         selected = -1
         paintIntentList(si, selected)
+        paintMenu(selected)
       elseif string.sub(p1,1,2) == "ed" then
         local itr = string.gmatch(p1, "%d+")
         editEntry(tonumber(itr()))
