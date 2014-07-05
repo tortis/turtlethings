@@ -4,7 +4,7 @@
 function printUsage()
   print("mea <sidename> <filename>")
   print("     <sidename> Side of ME Controller eg. top left bottom")
-  print("     <filename> File containing stock definitions.
+  print("     <filename> File containing stock definitions.")
   print("                If the file does not exist, it will be created.")
   print("mea help")
   print("     Get help")
