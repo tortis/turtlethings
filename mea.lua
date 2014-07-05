@@ -92,7 +92,7 @@ function paintMenu()
 end
 
 function paintIntentList(index, selected)
-  local leftPos = WIDTH/2
+  local leftPos = math.floor(WIDTH/2)
   local vheight = HEIGHT-5
   paintutils.drawLine(leftPos-1, 2, leftPos-1, HEIGHT-1, colors.gray)
   term.setCursorPos(leftPos,2)
