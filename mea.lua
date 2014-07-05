@@ -243,10 +243,17 @@ function paintIntentList(index, selected)
   term.setCursorPos(leftPos,2)
   term.setTextColor(colors.black)
   term.setBackgroundColor(colors.white)
-  term.write("Stocking:")
+  if PAUSED then
+    term.write("Stocking: ")
+    term.setTextColor(colors.red)
+    term.write("Paused")
+  else
+    term.write("Stocking: ")
+  end
   paintutils.drawLine(leftPos,3,WIDTH,3,colors.lightGray)
   
   clearIntentList(leftPos)
+  term.setTextColor(colors.black)
   local j = 1
   local tov = math.min(index+vheight, #LEVELDICT)
   for i=index,tov do
@@ -258,7 +265,6 @@ function paintIntentList(index, selected)
       term.setBackgroundColor(colors.green)
     end
     if i == selected then term.setBackgroundColor(colors.yellow) end
-    term.setTextColor(colors.black)
     local text = tab.name..": "..tab.c.."/"..tab.amt
     BUTTONS.add(leftPos,j + 3,WIDTH-leftPos, i)
     term.write(text)
