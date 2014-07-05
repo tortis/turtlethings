@@ -319,7 +319,7 @@ function UILoop()
         selected = -1
         paintIntentList(si, selected)
         paintMenu(selected)
-      elseif =1 == "create" then
+      elseif p1 == "create" then
         createEntry()
         selected = LEVELDICT[#LEVELDICT]
         paintMenu(selected)
