@@ -215,7 +215,7 @@ function createEntry()
   LEVELDICT[next].id = id
   LEVELDICT[next].meta = meta
   LEVELDICT[next].amt = level
-  os.queueEvent("notif", "New definition for "..name..)
+  os.queueEvent("notif", "New definition for "..name)
 end
 
 function clearIntentList(leftPos)
