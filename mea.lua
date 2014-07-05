@@ -237,8 +237,7 @@ function UILoop()
         paintIntentList(si, selected)
       elseif string.sub(p1,1,2) == "ed" then
         local itr = string.gmatch(p1, "%d+")
-        local n = tonumber(itr())
-        editEntry(id)
+        editEntry(tonumber(itr()))
       elseif string.sub(p1,2,3) == "rm" then
         local itr = string.gmatch(p1, "%d+")
         local n = tonumber(itr())
