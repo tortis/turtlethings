@@ -260,11 +260,14 @@ function UILoop()
         paintMenu(selected)
         paintIntentList(si, selected)
         saveIntent(INTENTFILE)
+        tid = os.startTimer(1) -- Restart the timer
       elseif string.sub(p1,2,3) == "rm" then
         local itr = string.gmatch(p1, "%d+")
-        local n = tonumber(itr())
-        paintMenu(selected)
-        tid = os.startTimer(1)
+        table.remove(LEVELDICT, tonumber(itr()))
+        paintMenu(-1)
+        paintIntentList(si, -1)
+        saveIntent(INTENTFILE)
+        tid = os.startTimer(1) -- Restart the timer
       elseif p1 == "exit" then
         return
       end
