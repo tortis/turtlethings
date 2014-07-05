@@ -103,14 +103,12 @@ function paintTitleBar()
   term.write(textutils.formatTime(os.time(), false))
 end
 
-function paintNotificationBar(msg)
+function paintNotificationBar(msg, cap)
   paintutils.drawLine(1,HEIGHT,WIDTH,HEIGHT, colors.lightGray)
   term.setCursorPos(2, HEIGHT)
   term.setTextColor(colors.black)
   term.write(msg)
-  local fb = ME.getFreeBytes()
-  local tb = ME.getTotalBytes()
-  local captext = "" .. math.floor((tb-fb)/tb*100) .. "% Cap.")
+  local captext = cap .. "% Cap.")
   term.setCursorPos(WIDTH-string.len(captext), HEIGHT)
   term.write(captext)
 end
@@ -302,6 +300,7 @@ end
 function UILoop()
   local si = 1
   local selected = -1
+  local cap = 0
   term.setBackgroundColor(colors.white)
   term.clear()
   paintTitleBar()
@@ -309,18 +308,27 @@ function UILoop()
   paintMenu(selected)
   SCROLLS.add(math.floor(WIDTH/2-4), 4, WIDTH-1, HEIGHT-1, "intent_scroll")
   local tid = os.startTimer(2)
+  local captid = os.startTimer(5)
   os.queueEvent("notif", "Welcome!")
   while true do
     local e,p1,p2 = os.pullEvent()
     if e == "notif" then
-      paintNotificationBar(p1)
-    elseif e == "timer" and p1 == tid then
-      term.setBackgroundColor(colors.white)
-      term.setCursorPos(1,1)
-      term.clearLine()
-      paintTitleBar()
-      paintIntentList(si, selected)
-      tid = os.startTimer(INTERVAL)
+      paintNotificationBar(p1, cap)
+    elseif e == "timer"
+      if p1 == tid then
+        term.setBackgroundColor(colors.white)
+        term.setCursorPos(1,1)
+        term.clearLine()
+        paintTitleBar()
+        paintIntentList(si, selected)
+        tid = os.startTimer(INTERVAL)
+      elseif pid == captid
+        local tb = ME.getTotalBytes()
+        local fb = ME.getFreeBytes()
+        cap = math.floor(tb-fb)/tb)
+        paintNotificationBar("Ready", cap)
+        captid = os.startTimer(60)
+      end
     elseif e == "intent_scroll" then
       si = si + p1
       if si < 1 then si = 1 end
