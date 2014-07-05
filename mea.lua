@@ -242,6 +242,7 @@ function paintIntentList(index, selected)
   paintutils.drawLine(leftPos-1, 2, leftPos-1, HEIGHT-1, colors.gray)
   term.setCursorPos(leftPos,2)
   term.setTextColor(colors.black)
+  paintutils.drawLine(leftPos,2,WIDTH,2,colors.white)
   term.setBackgroundColor(colors.white)
   if PAUSED then
     term.write("Stocking: ")
