@@ -221,6 +221,13 @@ function UILoop()
         selected = -1
         paintIntentList(si, selected)
         paintMenu(selected)
+      elseif string.sub(p1,1,2) == "ed" then
+        local itr = string.gmatch(p1, "%d+")
+        local n = tonumber(itr())
+        term.write("Hi:"..n)
+      elseif string.sub(p1,2,3) == "rm" then
+        local itr = string.gmatch(p1, "%d+")
+        local n = tonumber(itr())
       elseif p1 == "exit" then
         return
       end
