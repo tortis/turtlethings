@@ -132,6 +132,14 @@ function paintMenu(selected)
     term.setCursorPos(2,5)
     term.write("New Definition")
     BUTTONS.add(2,5,17, "create")
+    term.setCursorPos(2,7)
+    if PAUSED then
+      term.write("Resume Stocking")
+      BUTTONS.add(2,7,15,"resume")
+    else
+      term.write("Pause Stocking")
+      BUTTONS.add(2,7,13,"pause")
+    end
     term.setCursorPos(rightPos-5,HEIGHT-2)
     term.write("Exit")
     BUTTONS.add(rightPos-5, HEIGHT-2, 4, "exit")
@@ -270,15 +278,11 @@ function stockerLoop()
   while not done do
     local e,p1,p2,p3 = os.pullEvent()
     if e == "timer" and p1 == tid then
-      stockCycle()
+      if not PAUSED then
+        stockCycle()
+      end
       os.queueEvent("notif", "Ready")
       tid = os.startTimer(INTERVAL)
-    elseif e == "pause_stock" then
-      tid = 0
-      os.queueEvent("notif", "Stocking paused")
-    elseif e == "resume_stock" then
-      tid = os.startTimer(INTERVAL)
-      os.queueEvent("notif", "Stocking resumed")
     end
   end
 end
@@ -326,6 +330,12 @@ function UILoop()
         paintIntentList(si, selected)
         saveIntent(INTENTFILE)
         tid = os.startTimer(1)
+      elseif p1 == "pause" then
+        PAUSED = true
+        paintMenu(selected)
+      elseif p1 == "resume" then
+        PAUSED = false
+        paintMenu(selected)
       elseif p1 == "ed" then
         editEntry(selected)
         paintMenu(selected)
@@ -375,6 +385,7 @@ if ME == nil then
 end
 
 INTERVAL = 10
+PAUSED = false
 WIDTH, HEIGHT = term.getSize()
 INTENTFILE = args[2]
 LEVELDICT = loadIntent(INTENTFILE)
