@@ -102,9 +102,18 @@ function paintMenu(selected)
     term.write("Exit")
     BUTTONS.add(2, 3, 4, "exit")
   else
-    term.setCursorPos(rightPos-7,HEIGHT-2)
     term.setTextColor(colors.black)
+    term.setBackgroundColor(colors.white)
+    term.setCursorPos(2, 2)
+    term.write(LEVELDICT[selected].name)
+    term.setCursorPos(2,4)
     term.setBackgroundColor(colors.lightGray)
+    term.write("Edit")
+    BUTTONS.add(2,4,4,"ed:"..selected)
+    term.setCursorPos(2,6)
+    term.write("Remove Entry")
+    BUTTONS.add(2,6,12,"rm:"..selected)
+    term.setCursorPos(rightPos-7,HEIGHT-2)
     term.write("Cancel")
     BUTTONS.add(rightPos-7,HEIGHT-2,6,"cancel")
   end
@@ -202,6 +211,7 @@ function UILoop()
       if si > #LEVELDICT then si = #LEVELDICT end
       paintIntentList(si, selected)
     elseif e == "button" then
+      os.queueEvent("notif", "button: "..p1)
       if type(p1) == "number" then
         selected = p1
         paintIntentList(si, selected)
