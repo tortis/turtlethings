@@ -326,12 +326,12 @@ function UILoop()
         selected = #LEVELDICT
         paintMenu(selected)
         paintIntentList(si, selected)
+        saveIntent(INTENTFILE)
         tid = os.startTimer(1)
       elseif p1 == "ed" then
         editEntry(selected)
         paintMenu(selected)
         paintIntentList(si, selected)
-        saveIntent(INTENTFILE)
         tid = os.startTimer(1) -- Restart the timer
       elseif p1 == "rm" then
         table.remove(LEVELDICT, selected)
