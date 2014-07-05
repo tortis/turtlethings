@@ -14,7 +14,7 @@ end
 
 -- Print out help instructions
 function printHelp()
-  
+  print("There is no help yet.")
 end
 
 -- Loads definitions (intent) from file
