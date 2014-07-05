@@ -134,7 +134,7 @@ function editEntry(id)
   term.setCursorPos(1,6)
   term.write("New Level: ")
   local nl = io.read()
-  while type(n1) ~= "number" or n1 < 1 then
+  while type(n1) ~= "number" or n1 < 1 do
     print("Please input a number greater than 0")
     term.write("New Level: ")
     n1 = io.read()
