@@ -83,12 +83,20 @@ function paintNotificationBar(msg)
   term.write(msg)
 end
 
-function paintMenu()
-  term.setCursorPos(2,3)
-  term.setTextColor(colors.black)
-  term.setBackgroundColor(colors.gray)
-  term.write("Button 1")
-  BUTTONS.add(2,3, 8, "btn1")
+function paintMenu(selected)
+  if selected < 0 then
+    term.setCursorPos(2,3)
+    term.setTextColor(colors.black)
+    term.setBackgroundColor(colors.gray)
+    term.write("Button 1")
+    BUTTONS.add(2,3, 8, "btn1")
+  else
+    term.secCursorPos(2,3)
+    term.setTextColor(colors.black)
+    term.setBackgroundColor(colors.lightGray)
+    term.write("Cancel")
+    BUTTONS.add(2,3,6,"cancel")
+  end
 end
 
 function paintIntentList(index, selected)
@@ -155,7 +163,7 @@ function UILoop()
   term.setBackgroundColor(colors.white)
   term.clear()
   paintTitleBar()
-  paintMenu()
+  paintMenu(selected)
   paintIntentList(si, selected)
   SCROLLS.add(math.floor(WIDTH/2), 4, WIDTH-1, HEIGHT-1, "intent_scroll")
   local tid = os.startTimer(2)
@@ -180,6 +188,11 @@ function UILoop()
       if type(p1) == "number" then
         selected = p1
         paintIntentList(si, selected)
+        paintMenu(selected)
+      elseif p1 == "cancel" then
+        selected = -1
+        paintIntentList(si, selected)
+        paintMenu(selected)
       end
     end
   end
