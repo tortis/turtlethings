@@ -121,6 +121,7 @@ function paintMenu(selected)
 end
 
 function editEntry(id)
+  assert(type(id) == "number", "editEntry expects a number")
   local rightPos = math.floor(WIDTH/2-6)
   clearMenu(rightPos)
   paintutils.drawLine(1,3,rightPos,3,colors.lightGray)
