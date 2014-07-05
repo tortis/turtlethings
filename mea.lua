@@ -485,7 +485,7 @@ end
 -------------------------------------------------
 -- Main Program
 -------------------------------------------------
-if #args < 1 then
+if #args < 1  or #args > 2 then
   printUsage()
   return
 end
