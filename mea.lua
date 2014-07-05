@@ -451,8 +451,6 @@ end
 -------------------------------------------------
 -- Global Variables
 -------------------------------------------------
-local args = {...}
-ME = peripheral.wrap(args[1])
 INTERVAL = 10
 PAUSED = false
 WIDTH, HEIGHT = term.getSize()
@@ -485,11 +483,13 @@ end
 -------------------------------------------------
 -- Main Program
 -------------------------------------------------
+local args = {...}
 if #args < 1  or #args > 2 then
   printUsage()
   return
 end
  
+ME = peripheral.wrap(args[1])
 if ME == nil then
   print("No peripheral was found on the specified side.")
   return
