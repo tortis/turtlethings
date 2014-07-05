@@ -150,7 +150,7 @@ function editEntry(id)
     nl = tonumber(io.read())
   end
   LEVELDICT[id].amt = nl
-  os.queueEvent("notif", "New level for "..LEVELDICT[id].name..": "..n1)
+  os.queueEvent("notif", "New level for "..LEVELDICT[id].name..": "..nl)
 end
 
 function clearIntentList(leftPos)
