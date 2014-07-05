@@ -91,7 +91,7 @@ function paintMenu(selected)
     term.write("Button 1")
     BUTTONS.add(2,3, 8, "btn1")
   else
-    term.secCursorPos(2,3)
+    term.setCursorPos(2,3)
     term.setTextColor(colors.black)
     term.setBackgroundColor(colors.lightGray)
     term.write("Cancel")
