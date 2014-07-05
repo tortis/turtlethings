@@ -351,20 +351,21 @@ end
 
 -- This loop handles UI
 function UILoop()
+  -- Setup the SCROLLS mask (so that the right menu will be scrollable)
+  SCROLLS.add(math.floor(WIDTH/2-4), 4, WIDTH-1, HEIGHT-1, "intent_scroll")
   -- UI Variables
   local si = 1
   local selected = -1
   local cap = 0
-  local tid = os.startTimer(2)
-  local captid = os.startTimer(5)
-  -- Setup the SCROLLS mask (so that the right menu will be scrollable)
-  SCROLLS.add(math.floor(WIDTH/2-4), 4, WIDTH-1, HEIGHT-1, "intent_scroll")
   
   term.setBackgroundColor(colors.white)
   term.clear()
   paintTitleBar()
   paintIntentList(si, selected)
   paintMenu(selected)
+  
+  local tid = os.startTimer(2)
+  local captid = os.startTimer(60)
   os.queueEvent("notif", "Welcome!")
   while true do
     local e,p1,p2 = os.pullEvent()
