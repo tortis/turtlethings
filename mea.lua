@@ -457,7 +457,7 @@ ARGS = {...}
 INTERVAL = 10
 PAUSED = false
 WIDTH, HEIGHT = term.getSize()
-INTENTFILE = ARGS[2]
+INTENTFILE = ""
 LEVELDICT = {}
 BUTTONS = {}
 SCROLLS = {}
@@ -491,16 +491,24 @@ if #ARGS < 1  or #ARGS > 2 then
   return
 end
 
-if #ARGS == 1 and ARGS[1] == "help" then
-  printHelp()
-  return
-end
-
-LEVELDICT = loadIntent(INTENTFILE)
- 
-ME = peripheral.wrap(ARGS[1])
-if ME == nil then
-  print("No peripheral was found on the specified side.")
+if #ARGS == 1 then
+  if ARGS[1] == "help" then
+    printHelp()
+    return
+  else
+    printUsage()
+    return
+  end
+elseif #ARGS == 2 then
+  INTENTFILE = ARGS[2]
+  LEVELDICT = loadIntent(INTENTFILE)
+  ME = peripheral.wrap(ARGS[1])
+  if ME == nil then
+    print("No peripheral was found on the specified side.")
+    return
+  end
+else
+  printUsage()
   return
 end
 
