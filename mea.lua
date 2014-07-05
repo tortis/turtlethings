@@ -261,7 +261,7 @@ function UILoop()
         paintIntentList(si, selected)
         saveIntent(INTENTFILE)
         tid = os.startTimer(1) -- Restart the timer
-      elseif string.sub(p1,2,3) == "rm" then
+      elseif string.sub(p1,1,2) == "rm" then
         local itr = string.gmatch(p1, "%d+")
         table.remove(LEVELDICT, tonumber(itr()))
         paintMenu(-1)
