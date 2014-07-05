@@ -7,7 +7,6 @@ function loadIntent(file)
     return
   end
   local r = {}
-  r.size = 0
   local line = f.readLine()
   local n = 1
   while line ~= nil do
@@ -30,7 +29,6 @@ function loadIntent(file)
       r[n].amt = tonumber(le[3])
       r[n].aug = 0
       r[n].c = 0
-      r.size = r.size + 1
       n = n + 1
     end
     line = f.readLine()
@@ -75,6 +73,26 @@ function stockCycle()
   if os.clock()-t0 > INTERVAL then
     os.queueEvent("notif", "Warning: the stock cycle took more time to complete than the stock interval. This is unsafe and may eventually lead to system failure.")
   end
+end
+
+function getString()
+  local n = io.read()
+  while n == nil or n == "" do
+    print("Input somehting")
+    term.write(" : ")
+    n = io.read()
+  end
+  return n
+end
+
+function getNumber()
+  local n = tonumber(io.read())
+  while n == nil or n < 1 do
+    print("Input a number")
+    term.write(" : ")
+    n = tonumber(io.read())
+  end
+  return n
 end
 
 function paintTitleBar()
@@ -143,14 +161,55 @@ function editEntry(id)
   term.write("Current Level: "..LEVELDICT[id].amt)
   term.setCursorPos(1,6)
   term.write("New Level: ")
-  local nl = tonumber(io.read())
-  while nl == nil or nl < 1 do
-    print("Input a number")
-    term.write("New Level: ")
-    nl = tonumber(io.read())
-  end
+  local nl = getNumber()
   LEVELDICT[id].amt = nl
   os.queueEvent("notif", "New level for "..LEVELDICT[id].name..": "..nl)
+end
+
+function createEntry()
+  local rightPos = math.floor(WIDTH/2-6)
+  clearMenu(rightPos)
+  paintutils.drawLine(1,3,rightPos,3,colors.lightGray)
+  term.setTextColor(colors.black)
+  term.setBackgroundColor(colors.white)
+  term.setCursorPos(1,2)
+  term.write("Create New Definition")
+  term.setCursorPos(1, 5)
+  term.write("Exact Item Name: ")
+  local name = getString()
+  
+  clearMenu(rightPos)
+  paintutils.drawLine(1,3,rightPos,3,colors.lightGray)
+  term.setTextColor(colors.black)
+  term.setBackgroundColor(colors.white)
+  term.setCursorPos(1,2)
+  term.write("Create New Definition")
+  term.setCursorPos(1, 5)
+  term.write("Item ID: ")
+  local id = getNumber()
+  
+  clearMenu(rightPos)
+  paintutils.drawLine(1,3,rightPos,3,colors.lightGray)
+  term.setTextColor(colors.black)
+  term.setBackgroundColor(colors.white)
+  term.setCursorPos(1,2)
+  term.write("Create New Definition")
+  term.setCursorPos(1, 5)
+  term.write("Item Meta (or 0): ")
+  local meta = getNumber()
+  
+  clearMenu(rightPos)
+  paintutils.drawLine(1,3,rightPos,3,colors.lightGray)
+  term.setTextColor(colors.black)
+  term.setBackgroundColor(colors.white)
+  term.setCursorPos(1,2)
+  term.write("Create New Definition")
+  term.setCursorPos(1, 5)
+  term.write("Stock Level: ")
+  local level = getNumber()
+  local next = #LEVELDICT + 1
+  LEVELDICT[next] = {name:name, id:id, meta:meta, amt:level}
+  os.queueEvent("notif", "New definition for "..name..)
 end
 
 function clearIntentList(leftPos)
@@ -188,9 +247,9 @@ function paintIntentList(index, selected)
     j = j + 1
   end
   -- ScrollBar
-  if LEVELDICT.size > 0 then
+  if #LEVELDICT > 0 then
     paintutils.drawLine(WIDTH,4,WIDTH,HEIGHT-1,colors.gray)
-    paintutils.drawPixel(WIDTH,vheight*index/LEVELDICT.size + 4,colors.black)
+    paintutils.drawPixel(WIDTH,vheight*index/#LEVELDICT + 4,colors.black)
   end
 end
 
@@ -254,6 +313,12 @@ function UILoop()
         selected = -1
         paintIntentList(si, selected)
         paintMenu(selected)
+      elseif =1 == "create" then
+        createEntry()
+        selected = LEVELDICT[#LEVELDICT]
+        paintMenu(selected)
+        paintIntentList(si, selected)
+        tid = os.startTimer(1)
       elseif p1 == "ed" then
         editEntry(selected)
         paintMenu(selected)
@@ -264,7 +329,7 @@ function UILoop()
         table.remove(LEVELDICT, selected)
         selected = -1
         paintMenu(-1)
-        paintIntentList(si, -1)
+        paintIntentList(si, selected)
         saveIntent(INTENTFILE)
         tid = os.startTimer(1) -- Restart the timer
       elseif p1 == "exit" then
