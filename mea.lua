@@ -178,7 +178,7 @@ function createEntry()
   term.setCursorPos(1,2)
   term.write("Create New Definition")
   term.setCursorPos(1, 5)
-  term.write("Exact Item Name: ")
+  term.print("Exact Item Name: ")
   local name = getString()
   
   clearMenu(rightPos)
@@ -188,7 +188,7 @@ function createEntry()
   term.setCursorPos(1,2)
   term.write("Create New Definition")
   term.setCursorPos(1, 5)
-  term.write("Item ID: ")
+  term.print("Item ID: ")
   local id = getNumber()
   
   clearMenu(rightPos)
@@ -198,7 +198,7 @@ function createEntry()
   term.setCursorPos(1,2)
   term.write("Create New Definition")
   term.setCursorPos(1, 5)
-  term.write("Item Meta (or 0): ")
+  term.print("Item Meta (or 0): ")
   local meta = getNumber()
   
   clearMenu(rightPos)
@@ -208,9 +208,10 @@ function createEntry()
   term.setCursorPos(1,2)
   term.write("Create New Definition")
   term.setCursorPos(1, 5)
-  term.write("Stock Level: ")
+  term.print("Stock Level: ")
   local level = getNumber()
   local next = #LEVELDICT + 1
+  LEVELDICT[next] = {}
   LEVELDICT[next].name = name
   LEVELDICT[next].id = id
   LEVELDICT[next].meta = meta
