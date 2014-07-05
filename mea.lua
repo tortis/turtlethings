@@ -134,12 +134,13 @@ function editEntry(id)
   term.setCursorPos(1,6)
   term.write("New Level: ")
   local nl = io.read()
-  while type(n1) ~= "number" or n1 < 1 do
+  while type(nl) ~= "number" or nl < 1 do
     print("Please input a number greater than 0")
     term.write("New Level: ")
-    n1 = io.read()
+    nl = io.read()
   end
-  LEVELDICT[id].amt = n1
+  LEVELDICT[id].amt = nl
+  os.queueEvent("notif", "New level for "..LEVELDICT[id].name..": "..n1)
 end
 
 function clearIntentList(leftPos)
@@ -245,7 +246,8 @@ function UILoop()
       elseif string.sub(p1,1,2) == "ed" then
         local itr = string.gmatch(p1, "%d+")
         editEntry(tonumber(itr()))
-        
+        paintMenu(selected)
+        paintIntentList(si, selected)
       elseif string.sub(p1,2,3) == "rm" then
         local itr = string.gmatch(p1, "%d+")
         local n = tonumber(itr())
