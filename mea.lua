@@ -94,7 +94,7 @@ end
 
 function paintMenu(selected)
   local rightPos = math.floor(WIDTH/2-6)
-  clearMenu(width)
+  clearMenu(rightPos)
   if selected < 0 then
     term.setCursorPos(2,3)
     term.setTextColor(colors.black)
