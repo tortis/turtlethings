@@ -120,10 +120,10 @@ function paintMenu(selected)
     term.setCursorPos(1,5)
     term.setBackgroundColor(colors.lightGray)
     term.write("Edit")
-    BUTTONS.add(1,5,4,"ed:"..selected)
+    BUTTONS.add(1,5,4,"ed")
     term.setCursorPos(1,7)
     term.write("Remove Entry")
-    BUTTONS.add(1,7,12,"rm:"..selected)
+    BUTTONS.add(1,7,12,"rm")
     term.setCursorPos(rightPos-7,HEIGHT-2)
     term.write("Cancel")
     BUTTONS.add(rightPos-7,HEIGHT-2,6,"cancel")
@@ -254,16 +254,15 @@ function UILoop()
         selected = -1
         paintIntentList(si, selected)
         paintMenu(selected)
-      elseif string.sub(p1,1,2) == "ed" then
-        local itr = string.gmatch(p1, "%d+")
-        editEntry(tonumber(itr()))
+      elseif p1 == "ed" then
+        editEntry(selected)
         paintMenu(selected)
         paintIntentList(si, selected)
         saveIntent(INTENTFILE)
         tid = os.startTimer(1) -- Restart the timer
-      elseif string.sub(p1,1,2) == "rm" then
-        local itr = string.gmatch(p1, "%d+")
-        table.remove(LEVELDICT, tonumber(itr()))
+      elseif p1 == "rm" then
+        table.remove(LEVELDICT, selected)
+        selected = -1
         paintMenu(-1)
         paintIntentList(si, -1)
         saveIntent(INTENTFILE)
