@@ -2,11 +2,12 @@
 
 -- Print out the program usage
 function printUsage()
-  print("mea <sidename> <filename>")
-  print("     <sidename> Side of ME Controller eg. top left bottom")
-  print("     <filename> File containing stock definitions.")
-  print("                If the file does not exist, it will be created.")
-  print("mea help")
+  print("Usage: mea <sidename> <filename>")
+  print("     <sidename> Side of ME Controller eg. top")
+  print("     <filename> File containing stock")
+  print("                definitions. If the does not")
+  print("                exist, it will be created.")
+  print("Usage: mea help")
   print("     Get help")
 end
 
