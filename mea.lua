@@ -339,9 +339,11 @@ function UILoop()
       elseif p1 == "pause" then
         PAUSED = true
         paintMenu(selected)
+        paintIntentList(si, selected)
       elseif p1 == "resume" then
         PAUSED = false
         paintMenu(selected)
+        paintIntentList(si, selected)
       elseif p1 == "ed" then
         editEntry(selected)
         paintMenu(selected)
@@ -350,7 +352,7 @@ function UILoop()
       elseif p1 == "rm" then
         table.remove(LEVELDICT, selected)
         selected = -1
-        paintMenu(-1)
+        paintMenu(selected)
         paintIntentList(si, selected)
         saveIntent(INTENTFILE)
         tid = os.startTimer(1) -- Restart the timer
