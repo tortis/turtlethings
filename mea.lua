@@ -108,6 +108,11 @@ function paintNotificationBar(msg)
   term.setCursorPos(2, HEIGHT)
   term.setTextColor(colors.black)
   term.write(msg)
+  local fb = ME.getFreeBytes()
+  local tb = ME.getTotalBytes()
+  local captext = math.floor((tb-fb)/tb*100) .. "% Cap.")
+  term.setCursorPos(WIDTH-string.len(captext), HEIGHT)
+  term.write(captext)
 end
 
 function clearMenu(width)
