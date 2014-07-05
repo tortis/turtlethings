@@ -216,6 +216,7 @@ function createEntry()
   LEVELDICT[next].id = id
   LEVELDICT[next].meta = meta
   LEVELDICT[next].amt = level
+  LEVELDICT[next].c = 0
   os.queueEvent("notif", "New definition for "..name)
 end
 
