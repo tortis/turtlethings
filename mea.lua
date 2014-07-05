@@ -100,7 +100,7 @@ function paintMenu(selected)
 end
 
 function paintIntentList(index, selected)
-  local leftPos = math.floor(WIDTH/2)
+  local leftPos = math.floor(WIDTH/2-4)
   local vheight = HEIGHT-5
   paintutils.drawLine(leftPos-1, 2, leftPos-1, HEIGHT-1, colors.gray)
   term.setCursorPos(leftPos,2)
@@ -165,7 +165,7 @@ function UILoop()
   paintTitleBar()
   paintMenu(selected)
   paintIntentList(si, selected)
-  SCROLLS.add(math.floor(WIDTH/2), 4, WIDTH-1, HEIGHT-1, "intent_scroll")
+  SCROLLS.add(math.floor(WIDTH/2-4), 4, WIDTH-1, HEIGHT-1, "intent_scroll")
   local tid = os.startTimer(2)
   os.queueEvent("notif", "Welcome!")
   while true do
