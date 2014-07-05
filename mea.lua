@@ -4,7 +4,7 @@ function loadIntent(file)
   local f = fs.open(file, "r")
   if f == nil then
     print("The file '"..file.."' could not be loaded.")
-    return
+    return {}
   end
   local r = {}
   local line = f.readLine()
