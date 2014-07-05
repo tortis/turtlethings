@@ -285,4 +285,5 @@ function SCROLLS.add(x1, y1, x2, y2, name)
 end
 
 parallel.waitForAny(stockerLoop, UILoop, inputLoop)
+term.clear()
 -- parallel.waitForAll(stockerLoop, analyticsLoop, UILoop, notificationLoop, wirelessRequestLoop)
