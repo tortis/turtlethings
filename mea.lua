@@ -85,7 +85,7 @@ end
 
 function clearMenu(width)
   for i=2,HEIGHT-1 do
-    paintutils.drawLine(1,i,width,i,color.white)
+    paintutils.drawLine(1,i,width,i,colors.white)
     for j=1,width do
       BUTTONS[j][i] = nil
     end
