@@ -7,6 +7,7 @@ function printUsage()
   print("     <filename> File containing stock")
   print("                definitions. If the does not")
   print("                exist, it will be created.")
+  print("")
   print("Usage: mea help")
   print("     Get help")
 end
