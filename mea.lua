@@ -420,4 +420,6 @@ function SCROLLS.add(x1, y1, x2, y2, name)
 end
 
 parallel.waitForAny(stockerLoop, UILoop, inputLoop)
+term.setBackgroundColor(colors.black)
+term.setCursorPos(1,1)
 term.clear()
