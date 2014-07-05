@@ -325,7 +325,7 @@ function UILoop()
       elseif pid == captid then
         local tb = ME.getTotalBytes()
         local fb = ME.getFreeBytes()
-        cap = math.floor(tb-fb)/tb)
+        cap = math.floor((tb-fb)/tb)
         paintNotificationBar("Ready", cap)
         captid = os.startTimer(60)
       end
