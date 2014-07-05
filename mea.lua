@@ -365,7 +365,7 @@ function UILoop()
   paintMenu(selected)
   
   local tid = os.startTimer(2)
-  local captid = os.startTimer(60)
+  local captid = os.startTimer(5)
   os.queueEvent("notif", "Welcome!")
   while true do
     local e,p1,p2 = os.pullEvent()
@@ -382,7 +382,7 @@ function UILoop()
       elseif p1 == captid then
         local tb = ME.getTotalBytes()
         local fb = ME.getFreeBytes()
-        cap = math.floor((tb-fb)/tb)
+        cap = math.floor((tb-fb)/tb*100)
         paintNotificationBar("Ready", cap)
         captid = os.startTimer(60)
       end
