@@ -1,14 +1,17 @@
--- ME Controller Software
+-- bitRAKE's ME Controller for Comptuercraft, OpenPeripheral, and Applied Energistics
+-- Author: bitRAKE
+-- github.com/tortis/turtlethings/bme.lua
+-- License: None - Copy and modify freely.
 
 -- Print out the program usage
 function printUsage()
-  print("Usage: mea <sidename> <filename>")
+  print("Usage: bme <sidename> <filename>")
   print("     <sidename> Side of ME Controller eg. top")
   print("     <filename> File containing stock")
   print("                definitions. If the does not")
   print("                exist, it will be created.")
   print("")
-  print("Usage: mea help")
+  print("Usage: bme help")
   print("     Get help")
 end
 
