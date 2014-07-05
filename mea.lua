@@ -491,6 +491,11 @@ if #ARGS < 1  or #ARGS > 2 then
   return
 end
 
+if #ARGS == 1 and ARGS[1] == "help" then
+  printHelp()
+  return
+end
+
 LEVELDICT = loadIntent(INTENTFILE)
  
 ME = peripheral.wrap(ARGS[1])
