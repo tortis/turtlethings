@@ -108,7 +108,7 @@ function paintNotificationBar(msg, cap)
   term.setCursorPos(2, HEIGHT)
   term.setTextColor(colors.black)
   term.write(msg)
-  local captext = cap .. "% Cap.")
+  local captext = cap .. "% Cap."
   term.setCursorPos(WIDTH-string.len(captext), HEIGHT)
   term.write(captext)
 end
