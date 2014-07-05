@@ -120,6 +120,21 @@ function paintMenu(selected)
   end
 end
 
+function editEntry(id)
+  local rightPos = math.floor(WIDTH/2-6)
+  clearMenu(rightPos)
+  paintutils.drawLine(1,3,rightPos,3,colors.lightGray)
+  term.setTextColor(colors.black)
+  term.setBackgroundColor(colors.white)
+  term.setCursorPos(1, 2)
+  term.write("Edit "..LEVELDICT[id].name)
+  term.setCursorPos(1,5)
+  term.write("Current Level: "..LEVELDICT[id].amt)
+  term.setCursorPos(1,6)
+  term.write("New Level: ")
+  local nl = io.read()
+end
+
 function clearIntentList(leftPos)
   for j=4,HEIGHT-1 do
     paintutils.drawLine(leftPos, j, WIDTH, j, colors.white)
@@ -220,18 +235,14 @@ function UILoop()
       elseif p1 == "cancel" then
         selected = -1
         paintIntentList(si, selected)
-        paintMenu(selected)
       elseif string.sub(p1,1,2) == "ed" then
-        term.setCursorPos(2,9)
-        term.write(p1)
         local itr = string.gmatch(p1, "%d+")
         local n = tonumber(itr())
-        term.write("Hi:"..n)
+        editEntry(id)
       elseif string.sub(p1,2,3) == "rm" then
-        term.setCursorPos(2,9)
-        term.write(p1)
         local itr = string.gmatch(p1, "%d+")
         local n = tonumber(itr())
+        paintMenu(selected)
       elseif p1 == "exit" then
         return
       end
