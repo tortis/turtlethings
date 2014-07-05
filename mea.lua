@@ -133,11 +133,11 @@ function editEntry(id)
   term.write("Current Level: "..LEVELDICT[id].amt)
   term.setCursorPos(1,6)
   term.write("New Level: ")
-  local nl = io.read()
-  while type(nl) ~= "number" or nl < 1 do
+  local nl = tonumber(io.read())
+  while nl < 1 do
     print("Please input a number greater than 0")
     term.write("New Level: ")
-    nl = io.read()
+    nl = tonumber(io.read())
   end
   LEVELDICT[id].amt = nl
   os.queueEvent("notif", "New level for "..LEVELDICT[id].name..": "..n1)
