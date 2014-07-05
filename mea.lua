@@ -88,7 +88,7 @@ function paintMenu()
   term.setTextColor(colors.black)
   term.setBackgroundColor(colors.gray)
   term.write("Button 1")
-  BUTTONS.add(2,3,"Button 1",  "btn1")
+  BUTTONS.add(2,3, 8, "btn1")
 end
 
 function paintIntentList(index, selected)
@@ -116,7 +116,7 @@ function paintIntentList(index, selected)
     if i == selected then term.setBackgroundColor(colors.yellow) end
     term.setTextColor(colors.black)
     local text = tab.name..":"..tab.amt.."@"..tab.c
-    BUTTONS.add(leftPos,j + 3,text, i)
+    BUTTONS.add(leftPos,j + 3,WIDTH-leftPos, i)
     term.write(text)
     j = j + 1
   end
@@ -225,8 +225,8 @@ BUTTONS = {}
 for i=1,WIDTH do
   BUTTONS[i] = {}
 end
-function BUTTONS.add(x, y, text, name)
-  for i=1,string.len(text) do
+function BUTTONS.add(x, y, len, name)
+  for i=1,len do
     BUTTONS[x+i-1][y] = name
   end
 end
