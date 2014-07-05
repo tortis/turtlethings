@@ -64,7 +64,6 @@ function stockCycle()
       local effectiveAmt = tab.c + tab.cc
       if effectiveAmt < tab.amt then
         ME.requestCrafting({id=tab.id,qty=tab.amt-effectiveAmt,dmg=tab.meta})
-        --os.queueEvent("notif", "Crafting ".. tab.amt - effectiveAmt .." ".. name)
       end
       tab.aug = 0
     end
@@ -272,19 +271,16 @@ function stockerLoop()
     local e,p1,p2,p3 = os.pullEvent()
     if e == "timer" and p1 == tid then
       stockCycle()
+      os.queueEvent("notif", "Ready")
       tid = os.startTimer(INTERVAL)
     elseif e == "pause_stock" then
       tid = 0
+      os.queueEvent("notif", "Stocking paused")
     elseif e == "resume_stock" then
       tid = os.startTimer(INTERVAL)
-    elseif e == "stop_stock" then
-      done = true
+      os.queueEvent("notif", "Stocking resumed")
     end
   end
-end
-
-function analyticsLoop()
-  -- Track storage, jobs, and make graphs
 end
 
 function UILoop()
@@ -308,14 +304,13 @@ function UILoop()
       term.clearLine()
       paintTitleBar()
       paintIntentList(si, selected)
-      tid = os.startTimer(15)
+      tid = os.startTimer(INTERVAL)
     elseif e == "intent_scroll" then
       si = si + p1
       if si < 1 then si = 1 end
       if si > #LEVELDICT then si = #LEVELDICT end
       paintIntentList(si, selected)
     elseif e == "button" then
-      os.queueEvent("notif", "button: "..p1)
       if type(p1) == "number" then
         selected = p1
         paintIntentList(si, selected)
@@ -365,10 +360,6 @@ function inputLoop()
   end
 end
 
-function wirelessRequestLoop()
-  -- Interface with chat block to server requests.
-end
-
 -- Main Program
  
 local args = {...}
@@ -410,4 +401,3 @@ end
 
 parallel.waitForAny(stockerLoop, UILoop, inputLoop)
 term.clear()
--- parallel.waitForAll(stockerLoop, analyticsLoop, UILoop, notificationLoop, wirelessRequestLoop)
