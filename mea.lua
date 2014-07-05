@@ -259,7 +259,7 @@ function UILoop()
         editEntry(tonumber(itr()))
         paintMenu(selected)
         paintIntentList(si, selected)
-        saveIntent(args[2])
+        saveIntent(INTENTFILE)
       elseif string.sub(p1,2,3) == "rm" then
         local itr = string.gmatch(p1, "%d+")
         local n = tonumber(itr())
@@ -307,7 +307,8 @@ end
 
 INTERVAL = 10
 WIDTH, HEIGHT = term.getSize()
-LEVELDICT = loadIntent(args[2])
+INTENTFILE = args[2]
+LEVELDICT = loadIntent(INTENTFILE)
 BUTTONS = {}
 for i=1,WIDTH do
   BUTTONS[i] = {}
