@@ -109,7 +109,7 @@ function paintIntentList(index, selected)
     local tab = LEVELDICT[i]
     term.setCursorPos(leftPos, j + 3)
     if tab.c < tab.amt then
-      term.setBackgroundColor(colors.red)
+      term.setBackgroundColor(colors.white)
     else
       term.setBackgroundColor(colors.green)
     end
