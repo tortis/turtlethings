@@ -211,7 +211,10 @@ function createEntry()
   term.write("Stock Level: ")
   local level = getNumber()
   local next = #LEVELDICT + 1
-  LEVELDICT[next] = {name:name, id:id, meta:meta, amt:level}
+  LEVELDICT[next].name = name
+  LEVELDICT[next].id = id
+  LEVELDICT[next].meta = meta
+  LEVELDICT[next].amt = level
   os.queueEvent("notif", "New definition for "..name..)
 end
 
