@@ -1,5 +1,22 @@
 -- ME Controller Software
 
+-- Print out the program usage
+function printUsage()
+  print("mea <sidename> <filename>")
+  print("     <sidename> Side of ME Controller eg. top left bottom")
+  print("     <filename> File containing stock definitions.
+  print("                If the file does not exist, it will be created.")
+  print("mea help")
+  print("     Get help")
+end
+
+-- Print out help instructions
+function printHelp()
+  
+end
+
+-- Loads definitions (intent) from file
+-- into the LEVELDICT global variable.
 function loadIntent(file)
   local f = fs.open(file, "r")
   if f == nil then
@@ -37,6 +54,8 @@ function loadIntent(file)
   return r
 end
 
+-- Saves definitons in the LEVELDICT global variable into the
+-- given file. The previous contents of the file are lost.
 function saveIntent(file)
   local f = fs.open(file, "w")
   assert (f ~= nil, "The intent file could not be opened to write to.")
@@ -46,6 +65,9 @@ function saveIntent(file)
   f.close()
 end
 
+-- Check the LEVELDICT definitions against the current stock
+-- including pending jobs. Submit crafting requests when necessary.
+-- This method will be slow for a large LEVELDICT.
 function stockCycle()
   local t0 = os.clock()
   local jobs = ME.getJobList()
@@ -74,6 +96,8 @@ function stockCycle()
   end
 end
 
+-- Asks the user for a strong. The cursor position
+-- should be set before calling this method.
 function getString()
   local n = io.read()
   while n == nil or n == "" do
@@ -84,6 +108,8 @@ function getString()
   return n
 end
 
+-- Asks the user for a number. The cursor position
+-- should be set before calling this method.
 function getNumber()
   local n = tonumber(io.read())
   while n == nil or n < 0 do
@@ -94,6 +120,12 @@ function getNumber()
   return n
 end
 
+-------------------------------------------------
+-- GUI Methods
+-------------------------------------------------
+
+-- Draws the title bar at the top which contains the
+-- name of the application and the time.
 function paintTitleBar()
   paintutils.drawLine(1,1,WIDTH,1, colors.blue)
   term.setTextColor(colors.white)
@@ -103,6 +135,8 @@ function paintTitleBar()
   term.write(textutils.formatTime(os.time(), false))
 end
 
+-- Draws the notification bar at the bottom. It will
+-- display the given message and ME system capacity.
 function paintNotificationBar(msg, cap)
   paintutils.drawLine(1,HEIGHT,WIDTH,HEIGHT, colors.lightGray)
   term.setCursorPos(2, HEIGHT)
@@ -113,6 +147,7 @@ function paintNotificationBar(msg, cap)
   term.write(captext)
 end
 
+-- Clears the pixels and buttons on the left side menu.
 function clearMenu(width)
   for i=2,HEIGHT-1 do
     paintutils.drawLine(1,i,width,i,colors.white)
@@ -122,6 +157,8 @@ function clearMenu(width)
   end
 end
 
+-- Draws the left menu depending on which definition (or none)
+-- is selected.
 function paintMenu(selected)
   local rightPos = math.floor(WIDTH/2-6)
   clearMenu(rightPos)
@@ -164,6 +201,8 @@ function paintMenu(selected)
   end
 end
 
+-- Asks the user to update the selected definition using the 
+-- space in the left menu
 function editEntry(id)
   assert(type(id) == "number", "editEntry expects a number")
   local rightPos = math.floor(WIDTH/2-6)
@@ -182,6 +221,8 @@ function editEntry(id)
   os.queueEvent("notif", "New level for "..LEVELDICT[id].name..": "..nl)
 end
 
+-- Asks the user to create a new definition using the space
+-- in the left menu
 function createEntry()
   local rightPos = math.floor(WIDTH/2-6)
   clearMenu(rightPos)
@@ -233,12 +274,15 @@ function createEntry()
   os.queueEvent("notif", "New definition for "..name)
 end
 
+-- Clears the pixels in the right menu (intent list)
 function clearIntentList(leftPos)
   for j=4,HEIGHT-1 do
     paintutils.drawLine(leftPos, j, WIDTH, j, colors.white)
   end
 end
 
+-- Draws the intent list (left menu) using the LEVELDICT
+-- global variable.
 function paintIntentList(index, selected)
   local leftPos = math.floor(WIDTH/2-4)
   local vheight = HEIGHT-5
@@ -281,6 +325,12 @@ function paintIntentList(index, selected)
   end
 end
 
+-------------------------------------------------
+-- Control Loops
+-------------------------------------------------
+
+-- This simply run the stockCycle on INTERVAL as long
+-- as stocking is not paused.
 function stockerLoop()
   local tid = os.startTimer(1)
   local done = false
@@ -297,18 +347,22 @@ function stockerLoop()
   end
 end
 
+-- This loop handles UI
 function UILoop()
+  -- UI Variables
   local si = 1
   local selected = -1
   local cap = 0
+  local tid = os.startTimer(2)
+  local captid = os.startTimer(5)
+  -- Setup the SCROLLS mask (so that the right menu will be scrollable)
+  SCROLLS.add(math.floor(WIDTH/2-4), 4, WIDTH-1, HEIGHT-1, "intent_scroll")
+  
   term.setBackgroundColor(colors.white)
   term.clear()
   paintTitleBar()
   paintIntentList(si, selected)
   paintMenu(selected)
-  SCROLLS.add(math.floor(WIDTH/2-4), 4, WIDTH-1, HEIGHT-1, "intent_scroll")
-  local tid = os.startTimer(2)
-  local captid = os.startTimer(5)
   os.queueEvent("notif", "Welcome!")
   while true do
     local e,p1,p2 = os.pullEvent()
@@ -377,6 +431,8 @@ function UILoop()
   end
 end
 
+-- Loop that handles raw user input and then dispatches
+-- meaningful events using the BUTTONS and SCROLLS masks
 function inputLoop()
   while true do
     local e, p1, p2, p3 = os.pullEvent()
@@ -392,38 +448,32 @@ function inputLoop()
   end
 end
 
--- Main Program
- 
+-------------------------------------------------
+-- Global Variables
+-------------------------------------------------
 local args = {...}
-if #args < 1 then
-  print("Usage")
-  return
-end
- 
 ME = peripheral.wrap(args[1])
-if ME == nil then
-  print("No peripheral was found on the specified side.")
-  return
-end
-
 INTERVAL = 10
 PAUSED = false
 WIDTH, HEIGHT = term.getSize()
 INTENTFILE = args[2]
 LEVELDICT = loadIntent(INTENTFILE)
 BUTTONS = {}
+SCROLLS = {}
+
 for i=1,WIDTH do
   BUTTONS[i] = {}
+  SCROLLS[i] = {}
 end
+
+-- Add a button to the button mask
 function BUTTONS.add(x, y, len, name)
   for i=1,len do
     BUTTONS[x+i-1][y] = name
   end
 end
-SCROLLS = {}
-for i=1,WIDTH do
-  SCROLLS[i] = {}
-end
+
+-- Add a scroll region to the scroll mask
 function SCROLLS.add(x1, y1, x2, y2, name)
   for i=x1, x2 do
     for j=y1,y2 do
@@ -432,7 +482,23 @@ function SCROLLS.add(x1, y1, x2, y2, name)
   end
 end
 
+-------------------------------------------------
+-- Main Program
+-------------------------------------------------
+if #args < 1 then
+  printUsage()
+  return
+end
+ 
+if ME == nil then
+  print("No peripheral was found on the specified side.")
+  return
+end
+
+-- Start all of the control loops in parallel
 parallel.waitForAny(stockerLoop, UILoop, inputLoop)
+
+-- Clean the screen if the program exits as expected.
 term.setBackgroundColor(colors.black)
 term.setCursorPos(1,1)
 term.clear()
