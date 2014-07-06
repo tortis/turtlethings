@@ -78,7 +78,7 @@ function stockCycle()
   local jobs = ME.getJobList()
   local jobsNameMap = {}
   for k,v in pairs(jobs) do
-    jobsNameMap["" .. v.id .. v.meta] = v.qty
+    jobsNameMap["" .. v.id .. v.dmg] = v.qty
   end
   for _, tab in ipairs(LEVELDICT) do
     if tab.name ~= "size" then
