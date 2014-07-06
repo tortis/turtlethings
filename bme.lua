@@ -51,6 +51,7 @@ function loadIntent(file)
       r[n].amt = tonumber(le[3])
       r[n].aug = 0
       r[n].c = 0
+      r[n].cc = 0
       n = n + 1
     end
     line = f.readLine()
@@ -193,16 +194,23 @@ function paintMenu(selected)
     term.setBackgroundColor(colors.white)
     term.setCursorPos(1, 2)
     term.write(LEVELDICT[selected].name)
-    term.setCursorPos(1,5)
+    term.setCursorPos(2,5)
     term.setBackgroundColor(colors.lightGray)
     term.write("Edit")
-    BUTTONS.add(1,5,4,"ed")
-    term.setCursorPos(1,7)
+    BUTTONS.add(2,5,4,"ed")
+    term.setCursorPos(2,7)
     term.write("Remove Entry")
-    BUTTONS.add(1,7,12,"rm")
+    BUTTONS.add(2,7,12,"rm")
     term.setCursorPos(rightPos-7,HEIGHT-2)
     term.write("Cancel")
     BUTTONS.add(rightPos-7,HEIGHT-2,6,"cancel")
+    
+    term.setBackgroundColor(colors.white)
+    term.setCursorPos(2,9)
+    print("ID: "..LEVELDICT[selected].id)
+    print("Meta: "..LEVELDICT[selected].meta)
+    print("Stored: "..LEVELDICT[selected].c)
+    print("Crafting: "..LEVELDICT[selected].cc)
   end
 end
 
