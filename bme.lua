@@ -206,11 +206,10 @@ function paintMenu(selected)
     BUTTONS.add(rightPos-7,HEIGHT-2,6,"cancel")
     
     term.setBackgroundColor(colors.white)
-    term.setCursorPos(2,9)
-    print("ID: "..LEVELDICT[selected].id)
-    print("Meta: "..LEVELDICT[selected].meta)
-    print("Stored: "..LEVELDICT[selected].c)
-    print("Crafting: "..LEVELDICT[selected].cc)
+    term.setCursorPos(1,9)
+    print(" ID:        "..LEVELDICT[selected].id ..":".. LEVELDICT[selected].meta)
+    print(" Stored:    "..LEVELDICT[selected].c)
+    print(" Crafting:  "..LEVELDICT[selected].cc)
   end
 end
 
