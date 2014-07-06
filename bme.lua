@@ -237,7 +237,7 @@ function createEntry()
   term.setCursorPos(1,2)
   term.write("New Definition")
   term.setCursorPos(1, 5)
-  print("Exact Item Name: ")
+  print("Item Name: ")
   local name = getString()
   
   clearMenu(rightPos)
