@@ -324,6 +324,7 @@ function paintIntentList(index, selected)
     else
       paintutils.drawPixel(leftPos,j+3,colors.green)
     end
+    term.setBackgroundColor(colors.white)
     if i == selected then term.setBackgroundColor(colors.yellow) end
     local text = tab.name..": "..tab.c.."/"..tab.amt
     BUTTONS.add(leftPos,j + 3,WIDTH-leftPos, i)
