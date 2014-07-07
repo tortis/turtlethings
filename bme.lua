@@ -319,11 +319,10 @@ function paintIntentList(index, selected)
   local tov = math.min(index+vheight, #LEVELDICT)
   for i=index,tov do
     local tab = LEVELDICT[i]
-    term.setCursorPos(leftPos, j + 3)
     if tab.c < tab.amt then
-      term.setBackgroundColor(colors.red)
+      paintutils.drawPixel(leftPos, j+3,colors.red)
     else
-      term.setBackgroundColor(colors.green)
+      paintutils.drawPixel(leftPos,j+3,colors.green)
     end
     if i == selected then term.setBackgroundColor(colors.yellow) end
     local text = tab.name..": "..tab.c.."/"..tab.amt
