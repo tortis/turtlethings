@@ -144,7 +144,7 @@ end
 -- Draws the notification bar at the bottom. It will
 -- display the given message and ME system capacity.
 function paintNotificationBar(msg, cap)
-  paintutils.drawLine(1,HEIGHT,WIDTH,HEIGHT, colors.lightGray)
+  paintutils.drawLine(1,HEIGHT,WIDTH,HEIGHT, colors.lightBlue)
   term.setCursorPos(2, HEIGHT)
   term.setTextColor(colors.black)
   term.write(msg)
@@ -168,7 +168,7 @@ end
 function paintMenu(selected)
   local rightPos = math.floor(WIDTH/2-6)
   clearMenu(rightPos)
-  paintutils.drawLine(1,3,rightPos,3,colors.lightGray)
+  paintutils.drawLine(1,3,rightPos,3,colors.lightBlue)
   if selected < 0 then
     term.setCursorPos(1,2)
     term.setBackgroundColor(colors.white)
@@ -219,7 +219,7 @@ function editEntry(id)
   assert(type(id) == "number", "editEntry expects a number")
   local rightPos = math.floor(WIDTH/2-6)
   clearMenu(rightPos)
-  paintutils.drawLine(1,3,rightPos,3,colors.lightGray)
+  paintutils.drawLine(1,3,rightPos,3,colors.lightBlue)
   term.setTextColor(colors.black)
   term.setBackgroundColor(colors.white)
   term.setCursorPos(1, 2)
@@ -238,7 +238,7 @@ end
 function createEntry()
   local rightPos = math.floor(WIDTH/2-6)
   clearMenu(rightPos)
-  paintutils.drawLine(1,3,rightPos,3,colors.lightGray)
+  paintutils.drawLine(1,3,rightPos,3,colors.lightBlue)
   term.setTextColor(colors.black)
   term.setBackgroundColor(colors.white)
   term.setCursorPos(1,2)
@@ -248,7 +248,7 @@ function createEntry()
   local name = getString()
   
   clearMenu(rightPos)
-  paintutils.drawLine(1,3,rightPos,3,colors.lightGray)
+  paintutils.drawLine(1,3,rightPos,3,colors.lightBlue)
   term.setTextColor(colors.black)
   term.setBackgroundColor(colors.white)
   term.setCursorPos(1,2)
@@ -258,7 +258,7 @@ function createEntry()
   local id = getNumber()
   
   clearMenu(rightPos)
-  paintutils.drawLine(1,3,rightPos,3,colors.lightGray)
+  paintutils.drawLine(1,3,rightPos,3,colors.lightBlue)
   term.setTextColor(colors.black)
   term.setBackgroundColor(colors.white)
   term.setCursorPos(1,2)
@@ -268,7 +268,7 @@ function createEntry()
   local meta = getNumber()
   
   clearMenu(rightPos)
-  paintutils.drawLine(1,3,rightPos,3,colors.lightGray)
+  paintutils.drawLine(1,3,rightPos,3,colors.lightBlue)
   term.setTextColor(colors.black)
   term.setBackgroundColor(colors.white)
   term.setCursorPos(1,2)
@@ -283,6 +283,7 @@ function createEntry()
   LEVELDICT[next].meta = meta
   LEVELDICT[next].amt = level
   LEVELDICT[next].c = 0
+  LEVELDICT[next].cc = 0
   os.queueEvent("notif", "New definition for "..name)
 end
 
@@ -310,7 +311,7 @@ function paintIntentList(index, selected)
   else
     term.write("Stocking: ")
   end
-  paintutils.drawLine(leftPos,3,WIDTH,3,colors.lightGray)
+  paintutils.drawLine(leftPos,3,WIDTH,3,colors.lightBlue)
   
   clearIntentList(leftPos)
   term.setTextColor(colors.black)
